@@ -8,10 +8,13 @@
 import UIKit
 
 final class HeaderCollectionReusableView: UICollectionReusableView {
+    
+    // MARK: - Public Properties
     static let identifier = "Header"
     
     var titleLabel = UILabel()
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -22,6 +25,7 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Methods
     private func setupView() {
         titleLabel.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

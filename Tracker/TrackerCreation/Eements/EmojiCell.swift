@@ -8,6 +8,8 @@
 import UIKit
 
 final class EmojiCell: UICollectionViewCell {
+    
+    // MARK: - Public Properties
     static let identifier = "EmojiCell"
     
     let label = UILabel()
@@ -18,6 +20,7 @@ final class EmojiCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -29,6 +32,7 @@ final class EmojiCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Methods
     private func setupLabel() {
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,4 +44,3 @@ final class EmojiCell: UICollectionViewCell {
         ])
     }
 }
-

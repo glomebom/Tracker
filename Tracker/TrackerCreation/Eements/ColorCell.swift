@@ -8,6 +8,8 @@
 import UIKit
 
 final class ColorCell: UICollectionViewCell {
+    
+    // MARK: - Public Properties
     static let identifier = "ColorCell"
     
     let colorView = UIView()
@@ -19,6 +21,7 @@ final class ColorCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 8
@@ -30,6 +33,7 @@ final class ColorCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Methods
     private func setupColorView() {
         colorView.layer.cornerRadius = 8
         colorView.translatesAutoresizingMaskIntoConstraints = false

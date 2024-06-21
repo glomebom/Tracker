@@ -8,9 +8,12 @@
 import UIKit
 
 final class PlaceHolderView: UIView {
+    
+    // MARK: - Private Properties
     private var imageView = UIImageView()
     private var label = UILabel()
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -21,10 +24,26 @@ final class PlaceHolderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Methods
+    func setupNoTrackersState() {
+        imageView.image = UIImage(named: "statisticsStar")
+        label.text = "Что будем отслеживать"
+    }
+    
+    func setupNoSearchResultsState() {
+        imageView.image = UIImage(named: "notFound")
+        label.text = "Ничего не найдено"
+    }
+    
+    func setupNoStatisticState() {
+        // TODO:
+    }
+    
+    // MARK: - Private Methods
     private func setupView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-
+        
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 80),
             imageView.heightAnchor.constraint(equalToConstant: 80),
@@ -42,19 +61,5 @@ final class PlaceHolderView: UIView {
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
-    }
-    
-    func setupNoTrackersState() {
-        imageView.image = UIImage(named: "statisticsStar")
-        label.text = "Что будем отслеживать"
-    }
-    
-    func setupNoSearchResultsState() {
-        imageView.image = UIImage(named: "notFound")
-        label.text = "Ничего не найдено"
-    }
-    
-    func setupNoStatisticState() {
-        // TODO
     }
 }

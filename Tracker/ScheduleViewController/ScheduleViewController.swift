@@ -7,13 +7,22 @@
 
 import UIKit
 
+// MARK: - Constants
+private enum Constants {
+    static let numberOfRowsInSection: Int = 7
+}
+
 final class ScheduleViewController: UIViewController {
-    private var tableView = UITableView()
-    private let saveButton = UIButton()
     
+    // MARK: - Public Properties
     weak var sheduleDelegate: ScheduleProtocol?
     var selectedDays: Set<WeekDays> = []
     
+    // MARK: - Private Properties
+    private var tableView = UITableView()
+    private let saveButton = UIButton()
+    
+    // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +34,7 @@ final class ScheduleViewController: UIViewController {
         setupTableView()
     }
     
-    //MARK: - Actions
+    // MARK: - IBAction
     @objc
     private func saveButtonPressed() {
         navigationController?.popViewController(animated: true)
@@ -35,18 +44,15 @@ final class ScheduleViewController: UIViewController {
     
     @objc
     private func switchChanged(_ sender: UISwitch) {
+        guard let weekDay = WeekDays(rawValue: sender.tag + 1) else { return }
         if sender.isOn {
-            if let weekDay = WeekDays(rawValue: sender.tag + 1) {
-                selectedDays.insert(weekDay)
-            }
+            selectedDays.insert(weekDay)
         } else {
-            if let weekDay = WeekDays(rawValue: sender.tag + 1) {
-                selectedDays.remove(weekDay)
-            }
+            selectedDays.remove(weekDay)
         }
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     private func setupSaveButton() {
         saveButton.setTitle("Готово", for: .normal)
         saveButton.backgroundColor = UIColor(named: "YP Black")
@@ -85,20 +91,22 @@ final class ScheduleViewController: UIViewController {
         guard let weekDay = WeekDays(rawValue: indexPath.row + 1) else { return }
         cell.textLabel?.text = weekDay.name
         cell.prepareForReuse()
-        cell.switchButton.tag = indexPath.row
-        cell.switchButton.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
+        cell.configButton(with: indexPath.row, action: #selector(switchChanged(_:)), controller: self)
         
-        if indexPath.row == 6 {
+        let lastCell = indexPath.row == Constants.numberOfRowsInSection - 1
+        let firstCell = indexPath.row == Constants.numberOfRowsInSection - 7
+        
+        if lastCell {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
             cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             cell.layer.cornerRadius = 16
-        } else if indexPath.row == 0 {
+        } else if firstCell {
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             cell.layer.cornerRadius = 16
         }
         
         if selectedDays.contains(weekDay) {
-            cell.switchButton.setOn(true, animated: true)
+            cell.setOn()
         }
     }
 }
@@ -106,7 +114,7 @@ final class ScheduleViewController: UIViewController {
 //MARK: - DataSource
 extension ScheduleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return Constants.numberOfRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -5,10 +5,11 @@
 //  Created by Gleb on 01.06.2024.
 //
 
-import Foundation
 import UIKit
 
 final class TabBarController: UITabBarController {
+    
+    // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,6 +19,7 @@ final class TabBarController: UITabBarController {
         setupTabBar()
     }
     
+    // MARK: - Private Methods
     private func setupTabBar() {
         let trackerViewController = TrackerViewController()
         trackerViewController.tabBarItem = UITabBarItem(

@@ -7,9 +7,15 @@
 
 import UIKit
 
+// MARK: - Types
 enum State {
     case Habit
     case Event
+}
+
+private enum Sections: Int, CaseIterable {
+    case category = 0
+    case schedule
 }
 
 protocol ShowScheduleDelegate: AnyObject {
@@ -21,13 +27,17 @@ protocol ShowCategoriesDelegate: AnyObject {
 }
 
 final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
+    
+    // MARK: - Public Properties
     static let identifier = "ButtonsCell"
     
     weak var scheduleDelegate: ShowScheduleDelegate?
     weak var categoriesDelegate: ShowCategoriesDelegate?
+    
     var state: State?
     var tableView = UITableView()
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,12 +48,13 @@ final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableVie
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Methods
     func updateSubtitleLabel(forCellAt indexPath: IndexPath, text: String) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? ButtonTableViewCell else { return }
         cell.setupSubtitleLabel(text: text)
     }
     
-    //MARK: Privates
+    // MARK: - Private Methods
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -67,11 +78,13 @@ final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableVie
         guard let state = state else { return }
         if state == .Habit {
             switch indexPath.row {
-            case 0:
+            case Sections.category.rawValue:
                 cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                cell.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
                 cell.titleLabel.text = "Категории"
-            case 1:
+            case Sections.schedule.rawValue:
                 cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                cell.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
                 cell.titleLabel.text = "Расписание"
                 cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
             default:
@@ -79,6 +92,7 @@ final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableVie
             }
         } else {
             cell.layer.masksToBounds = true
+            cell.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
             cell.titleLabel.text = "Категории"
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
         }
@@ -115,9 +129,9 @@ extension ButtonsCell {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0 {
+        if indexPath.row == Sections.category.rawValue {
             categoriesDelegate?.showCategoriesViewController()
-        } else if indexPath.row == 1 {
+        } else if indexPath.row == Sections.schedule.rawValue {
             scheduleDelegate?.showShowScheduleViewController(viewController: ScheduleViewController())
         }
     }

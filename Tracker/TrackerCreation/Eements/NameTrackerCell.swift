@@ -12,12 +12,16 @@ protocol SaveNameTrackerDelegate: AnyObject {
 }
 
 final class NameTrackerCell: UICollectionViewCell {
+    
+    // MARK: - Public Properties
     static let identifier = "TrackerNameTextFieldCell"
+    
     weak var delegate: SaveNameTrackerDelegate?
     
     let trackerNameTextField = UITextField()
     let xButton = UIButton(type: .custom)
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -28,12 +32,14 @@ final class NameTrackerCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - IBAction
     @objc
     func textFieldEditingChanged(_ textField: UITextField) {
         guard let text = trackerNameTextField.text else { return }
         delegate?.textFieldWasChanged(text: text)
     }
     
+    // MARK: - Private Methods
     private func setupTrackerNameTextField() {
         trackerNameTextField.layer.cornerRadius = 16
         trackerNameTextField.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)

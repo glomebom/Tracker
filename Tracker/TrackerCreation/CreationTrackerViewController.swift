@@ -7,19 +7,19 @@
 
 import UIKit
 
+// MARK: - Types
+private enum Sections: Int, CaseIterable {
+    case name = 0
+    case buttons
+    case emoji
+    case color
+}
+
 class CreationTrackerViewController: UIViewController {
+    
+    // MARK: - Public Properties
     weak var creationDelegate: TrackerCreationDelegete?
     weak var configureUIDelegate: ConfigureUIForTrackerCreationProtocol?
-    
-    private let stackView = UIStackView()
-    private let saveButton = UIButton()
-    private let cancelButton = UIButton()
-    private let allEmojies = [ "🙂", "😻", "🌺", "🐶", "❤️", "😱",
-                               "😇", "😡", "🥶", "🤔", "🙌", "🍔",
-                               "🥦", "🏓", "🥇", "🎸", "🏝️", "😪"]
-    private let allColors = [UIColor.color1, .color2, .color3, .color4, .color5, .color6,
-                             .color7, .color8, .color9, .color10, .color11, .color12,
-                             .color13, .color14, .color15, .color16, .color17, .color18]
     
     var selectedWeekDays: Set<WeekDays> = [] {
         didSet {
@@ -73,6 +73,18 @@ class CreationTrackerViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - Private Properties
+    private let stackView = UIStackView()
+    private let saveButton = UIButton()
+    private let cancelButton = UIButton()
+    private let allEmojies = [ "🙂", "😻", "🌺", "🐶", "❤️", "😱",
+                               "😇", "😡", "🥶", "🤔", "🙌", "🍔",
+                               "🥦", "🏓", "🥇", "🎸", "🏝️", "😪"]
+    private let allColors = [UIColor.color1, .color2, .color3, .color4, .color5, .color6,
+                             .color7, .color8, .color9, .color10, .color11, .color12,
+                             .color13, .color14, .color15, .color16, .color17, .color18]
+    
+    // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,7 +96,7 @@ class CreationTrackerViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    //MARK: - Actions
+    // MARK: - IBAction
     @objc
     func dismissKeyboard() {
         view.endEditing(true)
@@ -105,14 +117,16 @@ class CreationTrackerViewController: UIViewController {
             color: color,
             emoji: emoji,
             schedule: selectedWeekDays,
-            state: .Habit //???
+            state: .Habit
         )
         
         creationDelegate?.createTracker(tracker: tracker, category: trackerCategory)
         dismiss(animated: true)
     }
     
-    //MARK: - Setup StackView And Buttons
+    // MARK: - Private Methods
+    
+    ///MARK: - Setup StackView And Buttons
     private func setupSaveButton() {
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.backgroundColor = UIColor(named: "YP Gray")
@@ -164,7 +178,7 @@ class CreationTrackerViewController: UIViewController {
         
     }
     
-    //MARK: - Setup CollectionView
+    ///MARK: - Setup CollectionView
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -191,11 +205,11 @@ class CreationTrackerViewController: UIViewController {
 extension CreationTrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0, 1:
+        case Sections.name.rawValue, Sections.buttons.rawValue:
             return 1
-        case 2:
+        case Sections.emoji.rawValue:
             return allEmojies.count
-        case 3:
+        case Sections.color.rawValue:
             return allColors.count
         default:
             return 0
@@ -204,22 +218,22 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case 0:
+        case Sections.name.rawValue:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NameTrackerCell.identifier, for: indexPath) as? NameTrackerCell else {
                 return UICollectionViewCell()
             }
             cell.delegate = self
             cell.prepareForReuse()
             return cell
-        case 1:
+        case Sections.buttons.rawValue:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonsCell.identifier, for: indexPath) as? ButtonsCell else {
                 return UICollectionViewCell()
             }
             configureUIDelegate?.configureButtonsCell(cell: cell)
             return cell
-        case 2:
+        case Sections.emoji.rawValue:
             return configureEmojiCell(cellForItemAt: indexPath)
-        case 3:
+        case Sections.color.rawValue:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorCell.identifier, for: indexPath) as? ColorCell else {
                 return UICollectionViewCell()
             }
@@ -232,7 +246,7 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return Sections.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -242,10 +256,10 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
                 withReuseIdentifier: HeaderCollectionReusableView.identifier,
                 for: indexPath
             ) as? HeaderCollectionReusableView {
-                if indexPath.section == 2 {
+                if indexPath.section == Sections.emoji.rawValue {
                     sectionHeader.titleLabel.text = "Emoji"
                     return sectionHeader
-                } else if indexPath.section == 3 {
+                } else if indexPath.section == Sections.color.rawValue {
                     sectionHeader.titleLabel.text = "Цвет"
                     return sectionHeader
                 }
@@ -256,7 +270,7 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch section{
-        case 2, 3:
+        case Sections.emoji.rawValue, Sections.color.rawValue:
             return CGSize(width: collectionView.bounds.width, height: 18)
         default:
             return CGSize(width: collectionView.bounds.width, height: 0)
@@ -278,11 +292,11 @@ extension CreationTrackerViewController: UICollectionViewDelegateFlowLayout {
         let cellWidth = collectionView.frame.width - 16 * 2
         
         switch indexPath.section {
-        case 0:
+        case Sections.name.rawValue:
             return CGSize(width: cellWidth, height: 75)
-        case 1:
+        case Sections.buttons.rawValue:
             return configureUIDelegate?.calculateTableViewHeight(width: cellWidth) ?? CGSize(width: cellWidth, height: 150)
-        case 2, 3:
+        case Sections.emoji.rawValue, Sections.color.rawValue:
             let width = collectionView.frame.width - 18 * 2
             return CGSize(width: width / 6, height: width / 6)
         default:
@@ -291,13 +305,13 @@ extension CreationTrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 1 {
+        if section == Sections.buttons.rawValue {
             return UIEdgeInsets(top: 24, left: 16, bottom: 32, right: 16)
         }
         switch section {
-        case 1:
+        case Sections.buttons.rawValue:
             return UIEdgeInsets(top: 24, left: 16, bottom: 32, right: 16)
-        case 2, 3:
+        case Sections.emoji.rawValue, Sections.color.rawValue:
             return UIEdgeInsets(top: 24, left: 16, bottom: 40, right: 16)
         default:
             return UIEdgeInsets(top: 24, left: 16, bottom: 0, right: 16)
@@ -318,14 +332,14 @@ extension CreationTrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
+        if indexPath.section == Sections.emoji.rawValue {
             guard let cell = collectionView.cellForItem(at: indexPath) as? EmojiCell else {
                 collectionView.deselectItem(at: indexPath, animated: true)
                 return
             }
             guard let emoji = cell.label.text else { return }
             selectedEmoji = emoji
-        } else if indexPath.section == 3 {
+        } else if indexPath.section == Sections.color.rawValue {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ColorCell else {
                 collectionView.deselectItem(at: indexPath, animated: true)
                 return
@@ -338,9 +352,9 @@ extension CreationTrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
+        if indexPath.section == Sections.emoji.rawValue {
             selectedEmoji = nil
-        } else if indexPath.section == 3 {
+        } else if indexPath.section == Sections.color.rawValue {
             selectedColor = nil
         }
     }

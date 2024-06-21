@@ -8,10 +8,14 @@
 import UIKit
 
 final class ScheduleTableCell: UITableViewCell {
+    
+    // MARK: - Public Properties
     static let identifier = "ScheduleTableCell"
     
-    let switchButton = UISwitch(frame: .zero)
+    // MARK: - Private Properties
+    private let switchButton = UISwitch(frame: .zero)
     
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -23,6 +27,17 @@ final class ScheduleTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Methods
+    func configButton(with tag: Int, action: Selector, controller: UIViewController) {
+        switchButton.tag = tag
+        switchButton.addTarget(controller, action: action, for: .valueChanged)
+    }
+    
+    func setOn() {
+        switchButton.setOn(true, animated: true)
+    }
+    
+    // MARK: - Private Methods
     private func setupSwitch() {
         switchButton.setOn(false, animated: true)
         self.accessoryView = switchButton

@@ -8,6 +8,8 @@
 import UIKit
 
 final class TrackerCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - Public Properties
     static let identifier = "TrackerCell"
     
     weak var counterDelegate: TrackerCounterDelegate?
@@ -40,6 +42,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -62,7 +65,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
-    //MARK: - Actions
+    // MARK: - IBAction
     @objc
     func buttonClicked() {
         if !checkIfTrackerWasCompleted() {
@@ -86,7 +89,9 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //MARK: - Check status
+    // MARK: - Private Methods
+    
+    ///MARK: - Check status
     private func checkIfTrackerWasCompleted() -> Bool {
         guard let id = trackerInfo?.id,
               let currentDay = trackerInfo?.currentDay,
@@ -122,7 +127,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         addButton.tintColor = .white
     }
     
-    //MARK: - Setup UI
+    ///MARK: - Setup UI
     private func setupCard() {
         card.layer.cornerRadius = 16
         card.layer.masksToBounds = true

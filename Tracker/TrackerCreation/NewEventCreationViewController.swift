@@ -8,6 +8,8 @@
 import UIKit
 
 final class NewEventCreationViewController: CreationTrackerViewController {
+    
+    // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -15,6 +17,7 @@ final class NewEventCreationViewController: CreationTrackerViewController {
         configureUIDelegate?.setupBackground()
     }
     
+    // MARK: - IBAction
     @objc
     override func saveButtonPressed() {
         guard let name = trackerName,
@@ -38,6 +41,8 @@ final class NewEventCreationViewController: CreationTrackerViewController {
 
 //MARK: - ConfigureUIForTrackerCreationProtocol
 extension NewEventCreationViewController: ConfigureUIForTrackerCreationProtocol {
+    
+    // MARK: - Public Methods
     func configureButtonsCell(cell: ButtonsCell) {
         cell.prepareForReuse()
         cell.state = .Event

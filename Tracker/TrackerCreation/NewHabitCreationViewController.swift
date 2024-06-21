@@ -8,6 +8,8 @@
 import UIKit
 
 final class NewHabitCreationViewController: CreationTrackerViewController {
+    
+    // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -15,6 +17,7 @@ final class NewHabitCreationViewController: CreationTrackerViewController {
         configureUIDelegate?.setupBackground()
     }
     
+    // MARK: - Private Methods
     private func convertSelectedDaysToString() -> String {
         let weekSet = Set(WeekDays.allCases)
         
@@ -39,6 +42,8 @@ final class NewHabitCreationViewController: CreationTrackerViewController {
 
 //MARK: - ShowScheduleDelegate
 extension NewHabitCreationViewController: ShowScheduleDelegate {
+    
+    // MARK: - Public Methods
     func showShowScheduleViewController(viewController: ScheduleViewController) {
         viewController.sheduleDelegate = self
         viewController.selectedDays = selectedWeekDays
@@ -48,6 +53,8 @@ extension NewHabitCreationViewController: ShowScheduleDelegate {
 
 //MARK: - ScheduleProtocol
 extension NewHabitCreationViewController: ScheduleProtocol {
+    
+    // MARK: - Public Methods
     func saveSelectedDays(selectedDays: Set<WeekDays>) {
         if selectedDays.isEmpty {
             selectedWeekDays = []
@@ -66,6 +73,8 @@ extension NewHabitCreationViewController: ScheduleProtocol {
 
 //MARK: - ConfigureUIForTrackerCreationProtocol
 extension NewHabitCreationViewController: ConfigureUIForTrackerCreationProtocol {
+    
+    // MARK: - Public Methods
     func configureButtonsCell(cell: ButtonsCell) {
         cell.prepareForReuse()
         cell.scheduleDelegate = self

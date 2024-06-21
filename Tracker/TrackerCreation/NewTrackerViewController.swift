@@ -8,11 +8,15 @@
 import UIKit
 
 final class NewTrackerViewController: UIViewController {
+    
+    // MARK: - Public Properties
     weak var delegate: TrackerCreationDelegete?
     
+    // MARK: - Private Properties
     private var newHabitButton = UIButton()
     private var newEventButton = UIButton()
     
+    // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +25,7 @@ final class NewTrackerViewController: UIViewController {
         setupNewEventButton()
     }
     
+    // MARK: - IBAction
     @objc
     private func newHabitPressed() {
         let vc = NewHabitCreationViewController()
@@ -35,6 +40,7 @@ final class NewTrackerViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: - Private Methods
     private func setupNewHabitButton() {
         newHabitButton.setTitle("Привычка", for: .normal)
         newHabitButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)

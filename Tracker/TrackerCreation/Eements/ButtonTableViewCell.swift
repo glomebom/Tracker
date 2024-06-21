@@ -8,13 +8,17 @@
 import UIKit
 
 final class ButtonTableViewCell: UITableViewCell {
-    static let identifier = "ButtonTableViewCell"
     
-    private let subtitleLabel = UILabel()
-    private let stackView = UIStackView()
+    // MARK: - Public Properties
+    static let identifier = "ButtonTableViewCell"
     
     let titleLabel = UILabel()
     
+    // MARK: - Private Properties
+    private let subtitleLabel = UILabel()
+    private let stackView = UIStackView()
+    
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -30,6 +34,7 @@ final class ButtonTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Methods
     func setupSubtitleLabel(text: String) {
         if text.count > 0 {
             subtitleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -47,6 +52,7 @@ final class ButtonTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: - Private Methods
     private func setupTitleLabel() {
         titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

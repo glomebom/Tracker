@@ -8,14 +8,11 @@
 import UIKit
 
 final class TrackerViewController: UIViewController {
+    
+    // MARK: - Public Properties
     lazy var currentCategories: [TrackerCategory] = {
         filterCategoriesToShow()
     }()
-    
-    private let searchController = UISearchController(searchResultsController: nil)
-    private let questionTextLabel = UILabel()
-    private var navigationBar: UINavigationBar?
-    private var datePicker = UIDatePicker()
     
     var categories: [TrackerCategory] = []
     var currentDate = Date()
@@ -27,6 +24,13 @@ final class TrackerViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - Private Properties
+    private let searchController = UISearchController(searchResultsController: nil)
+    private let questionTextLabel = UILabel()
+    private var navigationBar: UINavigationBar?
+    private var datePicker = UIDatePicker()
+    
+    // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +38,7 @@ final class TrackerViewController: UIViewController {
         setupNavigationBar()
     }
     
-    //MARK: - Actions
+    // MARK: - IBAction
     @objc
     func addTrackerButtonTap() {
         let createTrackerViewController = NewTrackerViewController()
@@ -48,12 +52,14 @@ final class TrackerViewController: UIViewController {
         let selectedDate = sender.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
-
+        
         currentDate = selectedDate
         updateCollectionAccordingToDate()
     }
     
-    //MARK: - Setup CollectionView
+    // MARK: - Private Methods
+    
+    ///MARK: - Setup CollectionView
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -85,7 +91,7 @@ final class TrackerViewController: UIViewController {
         collectionView.backgroundView = backgroundView
     }
     
-    //MARK: - Setup NavigationBar
+    ///MARK: - Setup NavigationBar
     private func setupNavigationBar() {
         navigationBar = navigationController?.navigationBar
         
@@ -212,7 +218,7 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 146)
+        return CGSize(width: collectionView.bounds.width, height: 46)
     }
 }
 
