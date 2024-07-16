@@ -30,12 +30,25 @@ final class TrackerViewController: UIViewController {
     private var navigationBar: UINavigationBar?
     private var datePicker = UIDatePicker()
     
+    private let trackerStore = TrackerStore()
+    private let trackerCategoryStore = TrackerCategoryStore()
+    private let trackerRecordStore = TrackerRecordStore()
+    
     // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCollectionView()
         setupNavigationBar()
+        
+        trackerStore.delegate = self
+        trackerRecordStore.delegate = self
+        
+        createNewCategory()
+        
+        categories = trackerCategoryStore.categories
+        completedTrackers = trackerRecordStore.completedTrackers
+        updateCollectionAccordingToDate()
     }
     
     // MARK: - IBAction
@@ -58,6 +71,10 @@ final class TrackerViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    private func createNewCategory() {
+        try! trackerCategoryStore.addNewCategory(name: "Важное")
+    }
     
     ///MARK: - Setup CollectionView
     private func setupCollectionView() {
@@ -294,29 +311,21 @@ extension TrackerViewController: UISearchBarDelegate {
 //MARK: TrackerCreationDelegate
 extension TrackerViewController: TrackerCreationDelegete {
     func createTracker(tracker: Tracker, category: String) {
-        let categoryFound = categories.filter{
-            $0.title == category
-        }
-        
-        var trackers: [Tracker] = []
-        
-        if categoryFound.count > 0 {
-            categoryFound.forEach {
-                trackers = trackers + $0.trackers
-            }
-            
-            trackers.append(tracker)
-            
-            categories = categories.filter {
-                $0.title != category
-            }
-            
-            if !trackers.isEmpty {
-                categories.append(TrackerCategory(title: category, trackers: trackers))
-            }
-        } else {
-            categories.append(TrackerCategory(title: category, trackers: [tracker]))
-        }
+        try! trackerStore.addNewTracker(tracker: tracker, forCategory: category)
+    }
+}
+
+//MARK: - TrackerStoreDelegate
+extension TrackerViewController: TrackerStoreDelegate {
+    func store(insertedIndexes: [IndexPath], deletedIndexes: IndexSet) {
+        categories = trackerCategoryStore.categories
         updateCollectionAccordingToDate()
+    }
+}
+
+//MARK: - TrackerRecordStoreDelegate
+extension TrackerViewController: TrackerRecordStoreDelegate {
+    func recordUpdate() {
+        completedTrackers = trackerRecordStore.completedTrackers
     }
 }

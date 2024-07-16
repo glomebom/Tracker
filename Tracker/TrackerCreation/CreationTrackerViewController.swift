@@ -27,7 +27,7 @@ class CreationTrackerViewController: UIViewController {
         }
     }
     
-    var trackerCategory = "Здоровье" { //???
+    var trackerCategory = "Важное" {
         didSet {
             configureUIDelegate?.checkIfSaveButtonCanBePressed()
         }
@@ -375,6 +375,6 @@ extension CreationTrackerViewController: SaveNameTrackerDelegate {
 //MARK: - ShowCategoriesDelegate
 extension CreationTrackerViewController: ShowCategoriesDelegate {
     func showCategoriesViewController() {
-        //TODO:
+        //TO DO: добавить функционал создания категорий
     }
 }
