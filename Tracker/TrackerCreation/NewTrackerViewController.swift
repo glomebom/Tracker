@@ -21,6 +21,8 @@ final class NewTrackerViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        navigationItem.title = "Создание трекера"
+        
         setupNewHabitButton()
         setupNewEventButton()
     }

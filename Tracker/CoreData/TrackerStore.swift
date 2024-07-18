@@ -13,7 +13,11 @@ protocol TrackerStoreDelegate: AnyObject {
 }
 
 final class TrackerStore: NSObject {
+    
+    // MARK: - Public Properties
     weak var delegate: TrackerStoreDelegate?
+    
+    // MARK: - Private Properties
     
     private let context: NSManagedObjectContext
     private var insertedIndexes: [IndexPath]?
@@ -42,8 +46,13 @@ final class TrackerStore: NSObject {
         return fetchedResultsController
     }()
     
+    // MARK: - Initializers
     convenience override init() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        guard let appDelegate = (UIApplication.shared.delegate as? AppDelegate) else {
+            fatalError("Не удалось получить AppDelegate")
+        }
+        
+        let context = appDelegate.persistentContainer.viewContext
         self.init(context: context)
     }
     
@@ -51,8 +60,12 @@ final class TrackerStore: NSObject {
         self.context = context
     }
     
+    // MARK: - Public Methods
     func addNewTracker(tracker: Tracker, forCategory category: String) throws {
-        let objects = self.fetchedResultsController.fetchedObjects
+        guard let objects = self.fetchedResultsController.fetchedObjects//,
+        else {
+            throw CategoryStoreError.addNewTrackerError
+        }
         
         let trackerCoreData = TrackerCoreData(context: context)
         let trackerCategoryStore = TrackerCategoryStore(context: context)
@@ -96,10 +109,17 @@ extension TrackerStore: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        delegate?.store(insertedIndexes: insertedIndexes!, deletedIndexes: deletedIndexes!)
+        guard
+            let insertedIndexes,
+            let deletedIndexes
+        else {
+            return
+        }
         
-        insertedIndexes?.removeAll()
-        deletedIndexes = nil
+        delegate?.store(insertedIndexes: insertedIndexes, deletedIndexes: deletedIndexes)
+        
+        self.insertedIndexes?.removeAll()
+        self.deletedIndexes = nil
     }
     
     func controller(
@@ -116,7 +136,7 @@ extension TrackerStore: NSFetchedResultsControllerDelegate {
         case .delete:
             guard let indexPath = newIndexPath else { fatalError() }
             deletedIndexes?.insert(indexPath.item)
-        @unknown default:
+        default:
             break
         }
     }

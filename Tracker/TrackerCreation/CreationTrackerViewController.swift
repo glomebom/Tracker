@@ -165,8 +165,10 @@ class CreationTrackerViewController: UIViewController {
         stackView.distribution = UIStackView.Distribution.fillEqually
         stackView.alignment = UIStackView.Alignment.fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(saveButton)
+        
         stackView.addArrangedSubview(cancelButton)
+        stackView.addArrangedSubview(saveButton)
+        
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([

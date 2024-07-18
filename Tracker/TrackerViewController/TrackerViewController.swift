@@ -73,7 +73,7 @@ final class TrackerViewController: UIViewController {
     // MARK: - Private Methods
     
     private func createNewCategory() {
-        try! trackerCategoryStore.addNewCategory(name: "Важное")
+        try? trackerCategoryStore.addNewCategory(name: "Важное")
     }
     
     ///MARK: - Setup CollectionView
@@ -145,12 +145,12 @@ final class TrackerViewController: UIViewController {
     private func filterCategoriesToShow() -> [TrackerCategory] {
         currentCategories = []
         let weekdayInt = Calendar.current.component(.weekday, from: currentDate)
-        let day = (weekdayInt == 1) ?  WeekDays(rawValue: 7) : WeekDays(rawValue: weekdayInt - 1)
+        guard let day = (weekdayInt == 1) ?  WeekDays(rawValue: 7) : WeekDays(rawValue: weekdayInt - 1) else { return [] }
         
         categories.forEach { category in
             let title = category.title
             let trackers = category.trackers.filter { tracker in
-                tracker.schedule.contains(day!)
+                tracker.schedule.contains(day)
             }
             
             if trackers.count > 0 {
@@ -242,20 +242,11 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
 //MARK: TrackerCounterDelegate
 extension TrackerViewController: TrackerCounterDelegate {
     func increaseTrackerCounter(id: UUID, date: Date) {
-        completedTrackers.append(TrackerRecord(id: id, date: date))
+        try! trackerRecordStore.addRecord(trackerId: id, date: date)
     }
     
     func decreaseTrackerCounter(id: UUID, date: Date) {
-        completedTrackers = completedTrackers.filter {
-            if $0.id == id && Calendar.current.isDate(
-                $0.date,
-                equalTo: currentDate,
-                toGranularity: .day
-            ) {
-                return false
-            }
-            return true
-        }
+        try! trackerRecordStore.deleteRecord(trackerId: id, date: date)
     }
     
     func checkIfTrackerWasCompletedAtCurrentDay(id: UUID, date: Date) -> Bool {
@@ -311,7 +302,8 @@ extension TrackerViewController: UISearchBarDelegate {
 //MARK: TrackerCreationDelegate
 extension TrackerViewController: TrackerCreationDelegete {
     func createTracker(tracker: Tracker, category: String) {
-        try! trackerStore.addNewTracker(tracker: tracker, forCategory: category)
+        try? trackerStore.addNewTracker(tracker: tracker, forCategory: category)
+        updateCollectionAccordingToDate()
     }
 }
 

@@ -15,7 +15,13 @@ struct Tracker {
     let schedule: Set<WeekDays>
     let state: State
     
-    init(name: String, color: UIColor, emoji: String, schedule: Set<WeekDays>, state: State) {
+    init(
+        name: String,
+        color: UIColor,
+        emoji: String,
+        schedule: Set<WeekDays>,
+        state: State
+    ) {
         self.id = UUID()
         self.name = name
         self.color = color
@@ -24,7 +30,14 @@ struct Tracker {
         self.state = state
     }
     
-    init(id: UUID, name: String, color: UIColor, emoji: String, schedule: Set<WeekDays>, state: State) {
+    init(
+        id: UUID,
+        name: String,
+        color: UIColor,
+        emoji: String,
+        schedule: Set<WeekDays>,
+        state: State
+    ) {
         self.id = id
         self.name = name
         self.color = color

@@ -13,6 +13,8 @@ protocol TrackerRecordStoreDelegate: AnyObject {
 }
 
 final class TrackerRecordStore: NSObject {
+    
+    // MARK: - Public Properties
     weak var delegate: TrackerRecordStoreDelegate?
     
     var completedTrackers: [TrackerRecord] {
@@ -29,6 +31,7 @@ final class TrackerRecordStore: NSObject {
         return result
     }
     
+    // MARK: - Private Properties
     private let context: NSManagedObjectContext
     
     private lazy var fetchedResultsController: NSFetchedResultsController<TrackerRecordCoreData> = {
@@ -50,8 +53,13 @@ final class TrackerRecordStore: NSObject {
         return fetchedResultsController
     }()
     
+    // MARK: - Initializers
     convenience override init() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        guard let appDelegate = (UIApplication.shared.delegate as? AppDelegate) else {
+            fatalError("Не удалось получить AppDelegate")
+        }
+        
+        let context = appDelegate.persistentContainer.viewContext
         self.init(context: context)
     }
     
@@ -59,6 +67,7 @@ final class TrackerRecordStore: NSObject {
         self.context = context
     }
     
+    // MARK: - Public Methods
     func addRecord(trackerId: UUID, date: Date) throws {
         let trackerRecordCoreData = TrackerRecordCoreData(context: context)
         let trackerStore = TrackerStore(context: context)
@@ -86,13 +95,16 @@ final class TrackerRecordStore: NSObject {
         try context.save()
     }
     
+    // MARK: - Private Methods
     private func fetchTrackerRecord(trackerId: UUID, date: Date) throws -> TrackerRecordCoreData {
         let calendar = Calendar.current
         let dateFrom = calendar.startOfDay(for: date)
-        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)
+        guard let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom) else {
+            throw TrackerRecordStoreError.fetchTrackerRecordError
+        }
         
         let fromPredicate = NSPredicate(format: "%K >= %@", #keyPath(TrackerRecordCoreData.date), dateFrom as NSDate)
-        let toPredicate = NSPredicate(format: "%K < %@", #keyPath(TrackerRecordCoreData.date), dateTo! as NSDate)
+        let toPredicate = NSPredicate(format: "%K < %@", #keyPath(TrackerRecordCoreData.date), dateTo as NSDate)
         let idPredicate = NSPredicate(format: "%K == %@", #keyPath(TrackerRecordCoreData.trackerId), trackerId as CVarArg)
         
         let request = TrackerRecordCoreData.fetchRequest()
@@ -107,10 +119,11 @@ final class TrackerRecordStore: NSObject {
     }
     
     private func convertTrackerRecordFromCoreData(from trackerRecordCoreData: TrackerRecordCoreData) throws -> TrackerRecord {
-        guard
-            let id = trackerRecordCoreData.trackerId,
-            let date = trackerRecordCoreData.date else {
-            throw TrackerRecordStoreError.decodingTrackerRecordError
+        guard let id = trackerRecordCoreData.trackerId else {
+            throw TrackerRecordStoreError.decodingTrackerRecordIdError
+        }
+        guard let date = trackerRecordCoreData.date else {
+            throw TrackerRecordStoreError.decodingTrackerRecordDateError
         }
         return TrackerRecord(id: id, date: date)
     }

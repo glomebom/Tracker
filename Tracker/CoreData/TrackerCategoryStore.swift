@@ -13,6 +13,8 @@ protocol TrackerCategoryStoreDelegate: AnyObject {
 }
 
 final class TrackerCategoryStore: NSObject {
+    
+    // MARK: - Public Properties
     var categories: [TrackerCategory] {
         guard
             let objects = self.fetchedResultsController.fetchedObjects
@@ -21,13 +23,15 @@ final class TrackerCategoryStore: NSObject {
         var result: [TrackerCategory] = []
         do {
             result = try objects.map {
-                 try self.convertCategoryFromCoreData(from: $0)
+                try self.convertCategoryFromCoreData(from: $0)
             }
         } catch {return []}
         return result
     }
     
     weak var delegate: TrackerCategoryStoreDelegate?
+    
+    // MARK: - Private Properties
     private let context: NSManagedObjectContext
     private var insertedIndexes: IndexSet?
     private var deletedIndexes: IndexSet?
@@ -56,8 +60,13 @@ final class TrackerCategoryStore: NSObject {
         return fetchedResultsController
     }()
     
+    // MARK: - Initializers
     convenience override init() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        guard let appDelegate = (UIApplication.shared.delegate as? AppDelegate) else {
+            fatalError("Не удалось получить AppDelegate")
+        }
+        
+        let context = appDelegate.persistentContainer.viewContext
         self.init(context: context)
     }
     
@@ -65,6 +74,7 @@ final class TrackerCategoryStore: NSObject {
         self.context = context
     }
     
+    // MARK: - Public Methods
     func addNewCategory(name: String) throws {
         let request  = TrackerCategoryCoreData.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCategoryCoreData.title), name)
@@ -83,13 +93,14 @@ final class TrackerCategoryStore: NSObject {
         let trackerCategoryCoreDataRequest = TrackerCategoryCoreData.fetchRequest()
         trackerCategoryCoreDataRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCategoryCoreData.title), name)
         let result = try context.fetch(trackerCategoryCoreDataRequest)
-
+        
         guard let result = result.first else {
             throw CategoryStoreError.fetchingCategoryError
         }
         return result
     }
     
+    // MARK: - Public Methods
     private func convertCategoryFromCoreData(from categoryCoreData: TrackerCategoryCoreData) throws -> TrackerCategory {
         guard let title = categoryCoreData.title else {
             throw CategoryStoreError.decodingTitleError
@@ -133,11 +144,23 @@ extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        delegate?.newCategoryAdded(insertedIndexes: insertedIndexes!, deletedIndexes: deletedIndexes!, updatedIndexes: updatedIndexes!)
+        guard
+            let insertedIndexes,
+            let deletedIndexes,
+            let updatedIndexes
+        else {
+            return
+        }
         
-        insertedIndexes = nil
-        deletedIndexes = nil
-        updatedIndexes = nil
+        delegate?.newCategoryAdded(
+            insertedIndexes: insertedIndexes,
+            deletedIndexes: deletedIndexes,
+            updatedIndexes: updatedIndexes
+        )
+        
+        self.insertedIndexes = nil
+        self.deletedIndexes = nil
+        self.updatedIndexes = nil
     }
     
     func controller(
@@ -157,7 +180,7 @@ extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
         case .update:
             guard let indexPath = newIndexPath else { fatalError() }
             updatedIndexes?.insert(indexPath.item)
-        @unknown default:
+        default:
             fatalError()
         }
     }

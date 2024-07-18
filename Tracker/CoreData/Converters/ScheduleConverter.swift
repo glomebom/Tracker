@@ -7,19 +7,6 @@
 
 import Foundation
 
-enum Bit: Int16 {
-    case zero, one
-    
-    var description: Int {
-        switch self {
-        case .zero:
-            return 0
-        case .one:
-            return 1
-        }
-    }
-}
-
 final class ScheduleConvertor {
     func getSchedule(from byte: Int16) -> Set<WeekDays> {
         let arrayOfBits = convertFromUInt16(from: byte)
