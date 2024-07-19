@@ -16,7 +16,15 @@ struct TrackerInfoCell {
     let currentDay: Date
     let state: State
     
-    init(id: UUID, name: String, color: UIColor, emoji: String, daysCount: Int, currentDay: Date, state: State) {
+    init(
+        id: UUID,
+        name: String,
+        color: UIColor,
+        emoji: String,
+        daysCount: Int,
+        currentDay: Date,
+        state: State
+    ) {
         self.id = id
         self.name = name
         self.color = color

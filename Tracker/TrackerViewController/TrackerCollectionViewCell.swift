@@ -79,7 +79,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
             counterDelegate?.increaseTrackerCounter(id: id, date: currentDay)
             daysCount = counterDelegate?.calculateTimesTrackerWasCompleted(id: id) ?? daysCount
         } else {
-            addButton.setImage(UIImage(named: "plus"), for: .normal)
+            addButton.setImage(UIImage(systemName: "plus"), for: .normal)
             addButton.backgroundColor = color
             guard let id = trackerInfo?.id,
                   let currentDay = trackerInfo?.currentDay else { return }
@@ -120,7 +120,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
             addButton.setImage(UIImage(named: "done"), for: .normal)
             addButton.backgroundColor = color?.withAlphaComponent(0.3)
         } else {
-            addButton.setImage(UIImage(named: "plus"), for: .normal)
+            addButton.setImage(UIImage(systemName: "plus"), for: .normal)
             addButton.backgroundColor = color
         }
         addButton.layer.cornerRadius = 16
