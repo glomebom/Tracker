@@ -242,11 +242,11 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
 //MARK: TrackerCounterDelegate
 extension TrackerViewController: TrackerCounterDelegate {
     func increaseTrackerCounter(id: UUID, date: Date) {
-        try! trackerRecordStore.addRecord(trackerId: id, date: date)
+        try? trackerRecordStore.addRecord(trackerId: id, date: date)
     }
     
     func decreaseTrackerCounter(id: UUID, date: Date) {
-        try! trackerRecordStore.deleteRecord(trackerId: id, date: date)
+        try? trackerRecordStore.deleteRecord(trackerId: id, date: date)
     }
     
     func checkIfTrackerWasCompletedAtCurrentDay(id: UUID, date: Date) -> Bool {

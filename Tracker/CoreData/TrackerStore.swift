@@ -62,7 +62,7 @@ final class TrackerStore: NSObject {
     
     // MARK: - Public Methods
     func addNewTracker(tracker: Tracker, forCategory category: String) throws {
-        guard let objects = self.fetchedResultsController.fetchedObjects//,
+        guard let objects = self.fetchedResultsController.fetchedObjects
         else {
             throw CategoryStoreError.addNewTrackerError
         }
