@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F763527C2C4FD56900230283 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F763527B2C4FD56900230283 /* OnboardingViewController.swift */; };
+		F763527E2C4FD57400230283 /* SinglePageOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F763527D2C4FD57400230283 /* SinglePageOnboardingViewController.swift */; };
 		F764A1202C1EF65F009D9DCC /* ScheduleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F764A11F2C1EF65F009D9DCC /* ScheduleProtocol.swift */; };
 		F764A1222C1F07E0009D9DCC /* ScheduleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F764A1212C1F07E0009D9DCC /* ScheduleTableCell.swift */; };
 		F767CEA32C17049D0043726A /* PlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767CEA22C17049D0043726A /* PlaceHolderView.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F763527B2C4FD56900230283 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		F763527D2C4FD57400230283 /* SinglePageOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageOnboardingViewController.swift; sourceTree = "<group>"; };
 		F764A11F2C1EF65F009D9DCC /* ScheduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleProtocol.swift; sourceTree = "<group>"; };
 		F764A1212C1F07E0009D9DCC /* ScheduleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableCell.swift; sourceTree = "<group>"; };
 		F767CEA22C17049D0043726A /* PlaceHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderView.swift; sourceTree = "<group>"; };
@@ -113,6 +117,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F763527A2C4FD55100230283 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F763527B2C4FD56900230283 /* OnboardingViewController.swift */,
+				F763527D2C4FD57400230283 /* SinglePageOnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		F769AC5C2C1887F200CC0855 /* TrackerCreation */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +225,7 @@
 		F77745DC2C0B028D005F0760 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				F763527A2C4FD55100230283 /* Onboarding */,
 				F76A966C2C36B4870083043D /* CoreData */,
 				F76D28262C1B3FD10051005C /* Helpers */,
 				F76D28212C18D9820051005C /* ScheduleViewController */,
@@ -331,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F763527E2C4FD57400230283 /* SinglePageOnboardingViewController.swift in Sources */,
 				F768E0CE2C15EDA200558276 /* TrackerInfoCell.swift in Sources */,
 				F77745F42C0B3916005F0760 /* TrackerViewController.swift in Sources */,
 				F769AC692C188A5900CC0855 /* NewTrackerViewController.swift in Sources */,
@@ -359,6 +374,7 @@
 				F76A96A12C36D75E0083043D /* ScheduleConverter.swift in Sources */,
 				F77B97582C1232E1005CF65F /* TrackerRecord.swift in Sources */,
 				F77745F22C0B2390005F0760 /* TabBarController.swift in Sources */,
+				F763527C2C4FD56900230283 /* OnboardingViewController.swift in Sources */,
 				F769AC712C188AA000CC0855 /* ConfigureUIForTrackerCreationProtocol.swift in Sources */,
 				F76D28232C18D9AD0051005C /* ScheduleViewController.swift in Sources */,
 				F76A969B2C36D7340083043D /* CategoryStoreError.swift in Sources */,
