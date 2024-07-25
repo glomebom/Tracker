@@ -66,7 +66,7 @@ final class OnboardingViewController: UIPageViewController {
         else {
             fatalError("Invalid Configuration")
         }
-    
+        
         tabBarVC.tabBar.alpha = 0
         UIView.transition(
             with: window,
@@ -75,7 +75,7 @@ final class OnboardingViewController: UIPageViewController {
             animations: {
                 window.rootViewController = tabBarVC
                 tabBarVC.tabBar.alpha = 1
-        })
+            })
     }
     
     // MARK: - Private Methods
@@ -99,7 +99,7 @@ final class OnboardingViewController: UIPageViewController {
     
     private func setupPageControl() {
         view.addSubview(pageControl)
-            
+        
         NSLayoutConstraint.activate([
             pageControl.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -24),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -147,7 +147,7 @@ extension OnboardingViewController: UIPageViewControllerDelegate {
     ) {
         if let currentViewController = pageViewController.viewControllers?.first,
            let currentIndex = pages.firstIndex(of: currentViewController) {
-                pageControl.currentPage = currentIndex
+            pageControl.currentPage = currentIndex
         }
     }
 }

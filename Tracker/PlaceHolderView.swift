@@ -35,8 +35,18 @@ final class PlaceHolderView: UIView {
         label.text = "Ничего не найдено"
     }
     
+    func setUpNoCategories() {
+        let image = UIImage(named: "statisticsStar")
+        imageView.image = image
+        
+        label.text = "Привычки и события можно объединить по смыслу"
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.textAlignment = .center
+    }
+    
     func setupNoStatisticState() {
-        // TODO:
+        // TODO: реализовать функционал статистики
     }
     
     // MARK: - Private Methods
@@ -56,7 +66,7 @@ final class PlaceHolderView: UIView {
         addSubview(label)
         
         NSLayoutConstraint.activate([
-            label.heightAnchor.constraint(equalToConstant: 18),
+            //label.heightAnchor.constraint(equalToConstant: 18),
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)

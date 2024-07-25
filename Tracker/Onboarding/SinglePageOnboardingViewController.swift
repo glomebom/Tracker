@@ -8,7 +8,7 @@
 import UIKit
 
 final class SinglePageOnboardingViewController: UIViewController {
-
+    
     // MARK: - Private Properties
     private var text: String?
     private var imageTitle: String?
@@ -52,7 +52,7 @@ final class SinglePageOnboardingViewController: UIViewController {
     
     private func setupTextLabel() {
         guard let text = text else { return }
-
+        
         textLabel.text = text
         textLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         textLabel.lineBreakMode = .byWordWrapping

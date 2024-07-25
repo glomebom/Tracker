@@ -21,6 +21,7 @@ final class ScheduleTableCell: UITableViewCell {
         
         backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
         setupSwitch()
+        self.selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
