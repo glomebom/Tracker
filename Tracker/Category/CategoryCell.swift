@@ -11,7 +11,6 @@ final class CategoryCell: UITableViewCell {
     // MARK: - Public Properties
     static let identifier = "CategoryCell"
     
-    var label = UILabel()
     var viewModel: CategoryViewModel? {
         didSet {
             viewModel?.titleBinding = { [weak self] title in
@@ -19,6 +18,9 @@ final class CategoryCell: UITableViewCell {
             }
         }
     }
+    
+    // MARK: - Private Properties
+    private var label = UILabel()
     
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

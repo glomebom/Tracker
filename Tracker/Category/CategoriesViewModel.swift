@@ -16,6 +16,12 @@ final class CategoriesViewModel {
     var categoriesBinding: Binding<[CategoryViewModel]>?
     var selectedCategory: CategoryViewModel?
     
+    var numberOfRows: Int {
+        get {
+            categories.count
+        }
+    }
+    
     weak var categoryWasSelectedDelegate: CategoryWasSelectedProtocol?
     
     // MARK: - Private Properties

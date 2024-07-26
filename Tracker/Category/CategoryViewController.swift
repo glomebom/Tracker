@@ -82,37 +82,50 @@ final class CategoryViewController: UIViewController {
 //MARK: - TableView Data Source
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (categoriesViewModel.categories.count == 0) {
+        if (categoriesViewModel.numberOfRows == 0) {
             showPlaceholder()
         } else {
             tableView.backgroundView = nil
         }
-        return categoriesViewModel.categories.count
+        return categoriesViewModel.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.identifier, for: indexPath) as? CategoryCell else {
             return UITableViewCell()
         }
+        
+        let isOnlyOneCell = categoriesViewModel.categories.count == 1
+        let isFirstCell = indexPath.row == 0
+        let isLastCell = categoriesViewModel.isLastCategory(index: indexPath.row)
+        
         cell.prepareForReuse()
         cell.viewModel = categoriesViewModel.categories[indexPath.row]
         if categoriesViewModel.categoryIsChosen(category: cell.viewModel) {
             cell.accessoryType = .checkmark
         }
         
-        if categoriesViewModel.categories.count == 1 {
+        if isOnlyOneCell {
             cell.layer.cornerRadius = 16
-            cell.layer.maskedCorners = [.layerMaxXMinYCorner,
-                                        .layerMinXMinYCorner,
-                                        .layerMinXMaxYCorner,
-                                        .layerMaxXMaxYCorner]
+            cell.layer.maskedCorners = [
+                .layerMaxXMinYCorner,
+                .layerMinXMinYCorner,
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner
+            ]
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
-        } else if indexPath.row == 0 {
-            cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        } else if isFirstCell {
+            cell.layer.maskedCorners = [
+                .layerMinXMinYCorner,
+                .layerMaxXMinYCorner
+            ]
             cell.layer.cornerRadius = 16
-        } else if categoriesViewModel.isLastCategory(index: indexPath.row) {
+        } else if isLastCell {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
-            cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            cell.layer.maskedCorners = [
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner
+            ]
             cell.layer.cornerRadius = 16
         }
         return cell

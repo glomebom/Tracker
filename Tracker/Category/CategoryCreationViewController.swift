@@ -73,6 +73,7 @@ final class CategoryCreationViewController: UIViewController {
         saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         saveButton.titleLabel?.textColor = .white
         saveButton.backgroundColor = UIColor(named: "YP Gray")
+        saveButton.layer.cornerRadius = 16
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(saveButton)
