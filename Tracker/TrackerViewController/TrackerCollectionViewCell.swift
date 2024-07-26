@@ -102,17 +102,12 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateDaysCountLabel() {
-        let number = daysCount % 10
-        var days: String
-        switch number {
-        case 1:
-            days = "день"
-        case 2, 3, 4:
-            days = "дня"
-        default:
-            days = "дней"
-        }
-        daysCountLabel.text = String(daysCount) + " " + days
+        let daysRemaining = daysCount
+        let tasksString = String.localizedStringWithFormat(
+            NSLocalizedString("numberOfDays", comment: "Number of remaining days"),
+            daysRemaining
+        )
+        daysCountLabel.text = tasksString
     }
     
     private func updateAddButton() {
