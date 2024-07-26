@@ -14,11 +14,11 @@ private enum Sections: Int, CaseIterable {
 }
 
 protocol ShowScheduleDelegate: AnyObject {
-    func showShowScheduleViewController(viewController: ScheduleViewController)
+    func showScheduleViewController(viewController: ScheduleViewController)
 }
 
 protocol ShowCategoriesDelegate: AnyObject {
-    func showCategoriesViewController()
+    func showCategoriesViewController(viewController: CategoryViewController)
 }
 
 final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
@@ -45,7 +45,7 @@ final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableVie
     
     // MARK: - Public Methods
     func updateSubtitleLabel(forCellAt indexPath: IndexPath, text: String) {
-        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? ButtonTableViewCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? ButtonTableViewCell else { return }
         cell.setupSubtitleLabel(text: text)
     }
     
@@ -125,9 +125,9 @@ extension ButtonsCell {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == Sections.category.rawValue {
-            categoriesDelegate?.showCategoriesViewController()
+            categoriesDelegate?.showCategoriesViewController(viewController: CategoryViewController())
         } else if indexPath.row == Sections.schedule.rawValue {
-            scheduleDelegate?.showShowScheduleViewController(viewController: ScheduleViewController())
+            scheduleDelegate?.showScheduleViewController(viewController: ScheduleViewController())
         }
     }
 }

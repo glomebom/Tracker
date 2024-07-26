@@ -66,7 +66,6 @@ final class ButtonTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(titleLabel)
         stackView.distribution = UIStackView.Distribution.fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([

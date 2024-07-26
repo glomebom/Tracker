@@ -22,7 +22,8 @@ final class NewEventCreationViewController: CreationTrackerViewController {
     override func saveButtonPressed() {
         guard let name = trackerName,
               let color = selectedColor,
-              let emoji = selectedEmoji
+              let emoji = selectedEmoji,
+              let categoryTitle = trackerCategory?.title
         else { return }
         let week = WeekDays.allCases
         let weekSet = Set(week)
@@ -34,7 +35,7 @@ final class NewEventCreationViewController: CreationTrackerViewController {
             state: .Event
         )
         
-        creationDelegate?.createTracker(tracker: tracker, category: trackerCategory)
+        creationDelegate?.createTracker(tracker: tracker, category: categoryTitle)
         dismiss(animated: true)
     }
 }
@@ -45,6 +46,7 @@ extension NewEventCreationViewController: ConfigureUIForTrackerCreationProtocol 
     // MARK: - Public Methods
     func configureButtonsCell(cell: ButtonsCell) {
         cell.prepareForReuse()
+        cell.categoriesDelegate = self
         cell.state = .Event
     }
     

@@ -44,8 +44,6 @@ final class TrackerViewController: UIViewController {
         trackerStore.delegate = self
         trackerRecordStore.delegate = self
         
-        createNewCategory()
-        
         categories = trackerCategoryStore.categories
         completedTrackers = trackerRecordStore.completedTrackers
         updateCollectionAccordingToDate()
@@ -71,9 +69,8 @@ final class TrackerViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    
-    private func createNewCategory() {
-        try? trackerCategoryStore.addNewCategory(name: "Важное")
+    private func createNewCategory(categoryName: String) {
+        try? trackerCategoryStore.addNewCategory(name: categoryName)
     }
     
     ///MARK: - Setup CollectionView
@@ -292,6 +289,7 @@ extension TrackerViewController: UISearchResultsUpdating {
     }
 }
 
+//MARK: UISearchBarDelegate
 extension TrackerViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchController.searchBar.text = ""
@@ -300,7 +298,7 @@ extension TrackerViewController: UISearchBarDelegate {
 }
 
 //MARK: TrackerCreationDelegate
-extension TrackerViewController: TrackerCreationDelegete {
+extension TrackerViewController: TrackerCreationDelegate {
     func createTracker(tracker: Tracker, category: String) {
         try? trackerStore.addNewTracker(tracker: tracker, forCategory: category)
         updateCollectionAccordingToDate()
