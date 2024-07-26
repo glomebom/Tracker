@@ -34,7 +34,7 @@ final class CategoryCreationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Новая категория"
+        self.title = NSLocalizedString("category.new", comment: "")
         navigationItem.hidesBackButton = true
         view.backgroundColor = .white
         
@@ -69,7 +69,7 @@ final class CategoryCreationViewController: UIViewController {
     }
     
     private func setupSaveButton() {
-        saveButton.setTitle("Готово", for: .normal)
+        saveButton.setTitle(NSLocalizedString("done", comment: ""), for: .normal)
         saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         saveButton.titleLabel?.textColor = .white
         saveButton.backgroundColor = UIColor(named: "YP Gray")
@@ -89,7 +89,7 @@ final class CategoryCreationViewController: UIViewController {
     private func setupTextField() {
         categoryNameTextField.layer.cornerRadius = 16
         categoryNameTextField.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
-        categoryNameTextField.placeholder = "Введите название категории"
+        categoryNameTextField.placeholder = NSLocalizedString("category.enterTittle", comment: "")
         categoryNameTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         categoryNameTextField.setLeftPaddingPoints(12)
         categoryNameTextField.clearButtonMode = .whileEditing

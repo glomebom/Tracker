@@ -51,7 +51,7 @@ extension NewEventCreationViewController: ConfigureUIForTrackerCreationProtocol 
     }
     
     func setupBackground() {
-        self.title = "Новое нерегулярное событие"
+        self.title = NSLocalizedString("event.new", comment: "")
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
     }

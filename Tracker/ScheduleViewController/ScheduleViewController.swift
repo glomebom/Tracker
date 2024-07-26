@@ -26,7 +26,7 @@ final class ScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Расписание"
+        self.title = NSLocalizedString("schedule", comment: "")
         navigationItem.hidesBackButton = true
         view.backgroundColor = .white
         
@@ -54,7 +54,7 @@ final class ScheduleViewController: UIViewController {
     
     // MARK: - Private Methods
     private func setupSaveButton() {
-        saveButton.setTitle("Готово", for: .normal)
+        saveButton.setTitle(NSLocalizedString("done", comment: ""), for: .normal)
         saveButton.backgroundColor = UIColor(named: "YP Black")
         saveButton.layer.cornerRadius = 16
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)

@@ -134,7 +134,7 @@ class CreationTrackerViewController: UIViewController {
     
     ///MARK: - Setup StackView And Buttons
     private func setupSaveButton() {
-        saveButton.setTitle("Сохранить", for: .normal)
+        saveButton.setTitle(NSLocalizedString("save", comment: ""), for: .normal)
         saveButton.backgroundColor = UIColor(named: "YP Gray")
         saveButton.layer.cornerRadius = 16
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
@@ -146,7 +146,7 @@ class CreationTrackerViewController: UIViewController {
     }
     
     private func setupCancelButton() {
-        cancelButton.setTitle("Отменить", for: .normal)
+        cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal
         cancelButton.clipsToBounds = true
         cancelButton.setTitleColor(.red, for: .normal)
         cancelButton.layer.cornerRadius = 16
@@ -263,10 +263,10 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
                 for: indexPath
             ) as? HeaderCollectionReusableView {
                 if indexPath.section == Sections.emoji.rawValue {
-                    sectionHeader.titleLabel.text = "Emoji"
+                    sectionHeader.titleLabel.text = NSLocalizedString("emoji", comment: "")
                     return sectionHeader
                 } else if indexPath.section == Sections.color.rawValue {
-                    sectionHeader.titleLabel.text = "Цвет"
+                    sectionHeader.titleLabel.text = NSLocalizedString("color", comment: "")
                     return sectionHeader
                 }
             }

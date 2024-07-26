@@ -129,11 +129,11 @@ final class TrackerViewController: UIViewController {
         
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = NSLocalizedString("placeholder.searchbar", comment: "")
         
         navigationBar?.prefersLargeTitles = true
         
-        navigationBar?.topItem?.title = "Трекеры"
+        navigationBar?.topItem?.title = NSLocalizedString("trackers", comment: "")
         navigationBar?.topItem?.leftBarButtonItem = plusButton
         navigationBar?.topItem?.rightBarButtonItem = UIBarButtonItem(customView: datePicker)
         navigationItem.searchController = searchController

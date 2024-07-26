@@ -27,19 +27,19 @@ final class PlaceHolderView: UIView {
     // MARK: - Public Methods
     func setupNoTrackersState() {
         imageView.image = UIImage(named: "statisticsStar")
-        label.text = "Что будем отслеживать"
+        label.text = NSLocalizedString("placeholder.noTrackers", comment: "")
     }
     
     func setupNoSearchResultsState() {
         imageView.image = UIImage(named: "notFound")
-        label.text = "Ничего не найдено"
+        label.text = NSLocalizedString("placeholder.noSearchResults", comment: "")
     }
     
     func setUpNoCategories() {
         let image = UIImage(named: "statisticsStar")
         imageView.image = image
         
-        label.text = "Привычки и события можно объединить по смыслу"
+        label.text = NSLocalizedString("placeholder.noCategories", comment: "")
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.textAlignment = .center

@@ -21,7 +21,7 @@ final class NewTrackerViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        navigationItem.title = "Создание трекера"
+        navigationItem.title = NSLocalizedString("chooseTrackerVC.title", comment: "")
         
         setupNewHabitButton()
         setupNewEventButton()
@@ -54,7 +54,7 @@ final class NewTrackerViewController: UIViewController {
     
     // MARK: - Private Methods
     private func setupNewHabitButton() {
-        newHabitButton.setTitle("Привычка", for: .normal)
+        newHabitButton.setTitle(NSLocalizedString("habit", comment: ""), for: .normal)
         newHabitButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         newHabitButton.titleLabel?.textColor = .white
         newHabitButton.backgroundColor = UIColor(named: "YP Black")
@@ -72,7 +72,7 @@ final class NewTrackerViewController: UIViewController {
     }
     
     private func setupNewEventButton() {
-        newEventButton.setTitle("Нерегулярное событие", for: .normal)
+        newEventButton.setTitle(NSLocalizedString("event", comment: ""), for: .normal)
         newEventButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         newEventButton.titleLabel?.textColor = .white
         newEventButton.backgroundColor = UIColor(named: "YP Black")

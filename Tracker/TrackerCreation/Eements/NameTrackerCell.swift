@@ -43,7 +43,7 @@ final class NameTrackerCell: UICollectionViewCell {
     private func setupTrackerNameTextField() {
         trackerNameTextField.layer.cornerRadius = 16
         trackerNameTextField.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
-        trackerNameTextField.placeholder = "Введите название трекера"
+        trackerNameTextField.placeholder = NSLocalizedString("trackerCreation.enterTitle", comment: "")
         trackerNameTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         trackerNameTextField.setLeftPaddingPoints(12)
         
