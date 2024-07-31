@@ -8,7 +8,6 @@
 import UIKit
 
 final class NewHabitCreationViewController: CreationTrackerViewController {
-    
     // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()

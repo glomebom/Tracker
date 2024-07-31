@@ -8,7 +8,6 @@
 import UIKit
 
 final class NewEventCreationViewController: CreationTrackerViewController {
-    
     // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +31,8 @@ final class NewEventCreationViewController: CreationTrackerViewController {
             color: color,
             emoji: emoji,
             schedule: weekSet,
-            state: .Event
+            state: .Event,
+            isPinned: false
         )
         
         creationDelegate?.createTracker(tracker: tracker, category: categoryTitle)

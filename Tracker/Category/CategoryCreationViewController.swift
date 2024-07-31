@@ -75,6 +75,7 @@ final class CategoryCreationViewController: UIViewController {
         saveButton.backgroundColor = UIColor(named: "YP Gray")
         saveButton.layer.cornerRadius = 16
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        saveButton.accessibilityIdentifier = "saveNewCategory"
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(saveButton)
         
@@ -88,7 +89,13 @@ final class CategoryCreationViewController: UIViewController {
     
     private func setupTextField() {
         categoryNameTextField.layer.cornerRadius = 16
-        categoryNameTextField.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
+        categoryNameTextField.backgroundColor = UIColor { (traits: UITraitCollection) -> UIColor in
+            if traits.userInterfaceStyle == .light {
+                return UIColor.tableCellColor.withAlphaComponent(0.3)
+            } else {
+                return UIColor.tableCellColor.withAlphaComponent(0.85)
+            }
+        }
         categoryNameTextField.placeholder = NSLocalizedString("category.enterTittle", comment: "")
         categoryNameTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         categoryNameTextField.setLeftPaddingPoints(12)

@@ -8,7 +8,6 @@
 import UIKit
 
 final class EmojiCell: UICollectionViewCell {
-    
     // MARK: - Public Properties
     static let identifier = "EmojiCell"
     

@@ -8,7 +8,6 @@
 import UIKit
 
 final class ButtonTableViewCell: UITableViewCell {
-    
     // MARK: - Public Properties
     static let identifier = "ButtonTableViewCell"
     
@@ -22,7 +21,13 @@ final class ButtonTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor(named: "YPGray")?.withAlphaComponent(0.3)
+        backgroundColor = UIColor { (traits: UITraitCollection) -> UIColor in
+            if traits.userInterfaceStyle == .light {
+                return UIColor.tableCellColor.withAlphaComponent(0.3)
+            } else {
+                return UIColor.tableCellColor.withAlphaComponent(0.85)
+            }
+        }
         accessoryType = .disclosureIndicator
         layer.masksToBounds = true
         layer.cornerRadius = 16

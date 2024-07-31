@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - Constants
-private enum Constants {
+private enum rowConstants {
     static let numberOfRowsInSection: Int = 7
 }
 
@@ -58,6 +58,7 @@ final class ScheduleViewController: UIViewController {
         saveButton.backgroundColor = UIColor(named: "YP Black")
         saveButton.layer.cornerRadius = 16
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+        saveButton.accessibilityIdentifier = "saveSchedule"
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(saveButton)
         
@@ -93,8 +94,8 @@ final class ScheduleViewController: UIViewController {
         cell.prepareForReuse()
         cell.configButton(with: indexPath.row, action: #selector(switchChanged(_:)), controller: self)
         
-        let lastCell = indexPath.row == Constants.numberOfRowsInSection - 1
-        let firstCell = indexPath.row == Constants.numberOfRowsInSection - 7
+        let lastCell = indexPath.row == rowConstants.numberOfRowsInSection - 1
+        let firstCell = indexPath.row == rowConstants.numberOfRowsInSection - 7
         
         if lastCell {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
@@ -114,7 +115,7 @@ final class ScheduleViewController: UIViewController {
 //MARK: - DataSource
 extension ScheduleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Constants.numberOfRowsInSection
+        return rowConstants.numberOfRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

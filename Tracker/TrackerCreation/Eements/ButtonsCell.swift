@@ -7,12 +7,6 @@
 
 import UIKit
 
-// MARK: - Types
-private enum Sections: Int, CaseIterable {
-    case category = 0
-    case schedule
-}
-
 protocol ShowScheduleDelegate: AnyObject {
     func showScheduleViewController(viewController: ScheduleViewController)
 }
@@ -22,7 +16,6 @@ protocol ShowCategoriesDelegate: AnyObject {
 }
 
 final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
-    
     // MARK: - Public Properties
     static let identifier = "ButtonsCell"
     
@@ -31,6 +24,8 @@ final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableVie
     
     var state: State?
     var tableView = UITableView()
+    var scheduleSubText: String?
+    var categorySubText: String?
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -73,14 +68,16 @@ final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableVie
         guard let state = state else { return }
         if state == .Habit {
             switch indexPath.row {
-            case Sections.category.rawValue:
+            case TrackerTypeSections.category.rawValue:
                 cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
                 cell.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
                 cell.titleLabel.text = NSLocalizedString("categories", comment: "")
-            case Sections.schedule.rawValue:
+                cell.accessibilityIdentifier = "CategoryCell"
+            case TrackerTypeSections.schedule.rawValue:
                 cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 cell.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
                 cell.titleLabel.text = NSLocalizedString("schedule", comment: "")
+                cell.accessibilityIdentifier = "ScheduleCell"
                 cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
             default:
                 return
@@ -124,9 +121,9 @@ extension ButtonsCell {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == Sections.category.rawValue {
+        if indexPath.row == TrackerTypeSections.category.rawValue {
             categoriesDelegate?.showCategoriesViewController(viewController: CategoryViewController())
-        } else if indexPath.row == Sections.schedule.rawValue {
+        } else if indexPath.row == TrackerTypeSections.schedule.rawValue {
             scheduleDelegate?.showScheduleViewController(viewController: ScheduleViewController())
         }
     }

@@ -1,31 +1,28 @@
 //
-//  CategoryCell.swift
+//  FiltersTableViewCell.swift
 //  Tracker
 //
-//  Created by Gleb on 23.07.2024.
+//  Created by Gleb on 29.07.2024.
 //
 
 import UIKit
 
-final class CategoryCell: UITableViewCell {
+final class FiltersTableViewCell: UITableViewCell {
     // MARK: - Public Properties
-    static let identifier = "CategoryCell"
+    static let identifier = "FiltersCell"
     
-    var viewModel: CategoryViewModel? {
+    var label = UILabel()
+    
+    // MARK: - Overrides Methods
+    override var isSelected: Bool {
         didSet {
-            viewModel?.titleBinding = { [weak self] title in
-                self?.label.text = title
-            }
+            self.accessoryType = self.isSelected ? AccessoryType.checkmark : .none
         }
     }
     
-    // MARK: - Private Properties
-    private var label = UILabel()
-    
-    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        selectionStyle = .none
         backgroundColor = UIColor { (traits: UITraitCollection) -> UIColor in
             if traits.userInterfaceStyle == .light {
                 return UIColor.tableCellColor.withAlphaComponent(0.3)
@@ -43,11 +40,31 @@ final class CategoryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Methods
+    func setUpFirstCell() {
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        layer.cornerRadius = 16
+    }
+    
+    func setUpLastCell() {
+        layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        layer.cornerRadius = 16
+    }
+    
+    func setUpSingleCell() {
+        layer.cornerRadius = 16
+        layer.maskedCorners = [.layerMaxXMinYCorner,
+                               .layerMinXMinYCorner,
+                               .layerMinXMaxYCorner,
+                               .layerMaxXMaxYCorner]
+    }
+    
     // MARK: - Private Methods
     private func setupLabel() {
+        contentView.addSubview(label)
+        
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(label)
         
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),

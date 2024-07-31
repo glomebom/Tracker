@@ -8,6 +8,8 @@
 import UIKit
 
 final class PlaceHolderView: UIView {
+    // MARK: - Public Properties
+    var state: PlaceHolderState = .noTrackers
     
     // MARK: - Private Properties
     private var imageView = UIImageView()
@@ -25,18 +27,34 @@ final class PlaceHolderView: UIView {
     }
     
     // MARK: - Public Methods
-    func setupNoTrackersState() {
-        imageView.image = UIImage(named: "statisticsStar")
+    func configurePlaceHolder() {
+        switch state {
+        case .noTrackers:
+            setUpNoTrackersState()
+        case .noCategories:
+            setUpNoCategories()
+        case .noSearchResult:
+            setUpNoSearchResultsState()
+        case .noStatistic:
+            setUpNoStatisticState()
+        }
+    }
+    
+    func setUpNoTrackersState() {
+        let image = UIImage(named: "star")
+        imageView.image = image
         label.text = NSLocalizedString("placeholder.noTrackers", comment: "")
     }
     
-    func setupNoSearchResultsState() {
-        imageView.image = UIImage(named: "notFound")
+    func setUpNoSearchResultsState() {
+        let image = UIImage(named: "NoResult")
+        imageView.image = image
+        
         label.text = NSLocalizedString("placeholder.noSearchResults", comment: "")
     }
     
     func setUpNoCategories() {
-        let image = UIImage(named: "statisticsStar")
+        let image = UIImage(named: "star")
         imageView.image = image
         
         label.text = NSLocalizedString("placeholder.noCategories", comment: "")
@@ -45,8 +63,13 @@ final class PlaceHolderView: UIView {
         label.textAlignment = .center
     }
     
-    func setupNoStatisticState() {
-        // TODO: реализовать функционал статистики
+    func setUpNoStatisticState() {
+        let image = UIImage(named: "noStatistic")
+        imageView.image = image
+        label.text = NSLocalizedString("placeholder.noStatistics", comment: "")
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.textAlignment = .center
     }
     
     // MARK: - Private Methods
@@ -66,7 +89,6 @@ final class PlaceHolderView: UIView {
         addSubview(label)
         
         NSLayoutConstraint.activate([
-            //label.heightAnchor.constraint(equalToConstant: 18),
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)

@@ -49,6 +49,7 @@ final class CategoryViewController: UIViewController {
         createCategoryButton.backgroundColor = .ypBlack
         createCategoryButton.layer.cornerRadius = 16
         createCategoryButton.addTarget(self, action: #selector(createCategoryButtonTapped), for: .touchUpInside)
+        createCategoryButton.accessibilityIdentifier = "createCategory"
         createCategoryButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(createCategoryButton)
         

@@ -7,16 +7,7 @@
 
 import UIKit
 
-// MARK: - Types
-private enum Sections: Int, CaseIterable {
-    case name = 0
-    case buttons
-    case emoji
-    case color
-}
-
 class CreationTrackerViewController: UIViewController {
-    
     // MARK: - Public Properties
     weak var creationDelegate: TrackerCreationDelegate?
     weak var configureUIDelegate: ConfigureUIForTrackerCreationProtocol?
@@ -79,12 +70,8 @@ class CreationTrackerViewController: UIViewController {
     private let stackView = UIStackView()
     private let saveButton = UIButton()
     private let cancelButton = UIButton()
-    private let allEmojies = [ "🙂", "😻", "🌺", "🐶", "❤️", "😱",
-                               "😇", "😡", "🥶", "🤔", "🙌", "🍔",
-                               "🥦", "🏓", "🥇", "🎸", "🏝️", "😪"]
-    private let allColors = [UIColor.color1, .color2, .color3, .color4, .color5, .color6,
-                             .color7, .color8, .color9, .color10, .color11, .color12,
-                             .color13, .color14, .color15, .color16, .color17, .color18]
+    private let allEmojies = Constants.allEmojies
+    private let allColors = Constants.allColors
     
     // MARK: - Public Methods
     override func viewDidLoad() {
@@ -122,7 +109,8 @@ class CreationTrackerViewController: UIViewController {
             color: color,
             emoji: emoji,
             schedule: selectedWeekDays,
-            state: .Habit
+            state: .Habit,
+            isPinned: false
         )
         
         creationDelegate?.createTracker(tracker: tracker, category: categoryTitle)
@@ -138,6 +126,7 @@ class CreationTrackerViewController: UIViewController {
         saveButton.backgroundColor = UIColor(named: "YP Gray")
         saveButton.layer.cornerRadius = 16
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+        saveButton.accessibilityIdentifier = "saveNewTracker"
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -146,7 +135,7 @@ class CreationTrackerViewController: UIViewController {
     }
     
     private func setupCancelButton() {
-        cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal
+        cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal)
         cancelButton.clipsToBounds = true
         cancelButton.setTitleColor(.red, for: .normal)
         cancelButton.layer.cornerRadius = 16

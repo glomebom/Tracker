@@ -12,7 +12,6 @@ protocol SaveNameTrackerDelegate: AnyObject {
 }
 
 final class NameTrackerCell: UICollectionViewCell {
-    
     // MARK: - Public Properties
     static let identifier = "TrackerNameTextFieldCell"
     
@@ -42,7 +41,13 @@ final class NameTrackerCell: UICollectionViewCell {
     // MARK: - Private Methods
     private func setupTrackerNameTextField() {
         trackerNameTextField.layer.cornerRadius = 16
-        trackerNameTextField.backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
+        trackerNameTextField.backgroundColor = UIColor { (traits: UITraitCollection) -> UIColor in
+            if traits.userInterfaceStyle == .light {
+                return UIColor.tableCellColor.withAlphaComponent(0.3)
+            } else {
+                return UIColor.tableCellColor.withAlphaComponent(0.85)
+            }
+        }
         trackerNameTextField.placeholder = NSLocalizedString("trackerCreation.enterTitle", comment: "")
         trackerNameTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         trackerNameTextField.setLeftPaddingPoints(12)

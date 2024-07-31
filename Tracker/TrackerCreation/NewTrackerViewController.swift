@@ -8,7 +8,6 @@
 import UIKit
 
 final class NewTrackerViewController: UIViewController {
-    
     // MARK: - Public Properties
     weak var delegate: TrackerCreationDelegate?
     
@@ -60,6 +59,7 @@ final class NewTrackerViewController: UIViewController {
         newHabitButton.backgroundColor = UIColor(named: "YP Black")
         newHabitButton.layer.cornerRadius = 16
         newHabitButton.addTarget(self, action: #selector(newHabitPressed), for: .touchUpInside)
+        newHabitButton.accessibilityIdentifier = "NewHabit"
         newHabitButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(newHabitButton)
         

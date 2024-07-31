@@ -8,7 +8,6 @@
 import UIKit
 
 final class ColorCell: UICollectionViewCell {
-    
     // MARK: - Public Properties
     static let identifier = "ColorCell"
     

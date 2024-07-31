@@ -19,7 +19,22 @@ final class ScheduleTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
+        backgroundColor = UIColor { (traits: UITraitCollection) -> UIColor in
+            if traits.userInterfaceStyle == .light {
+                return UIColor.tableCellColor.withAlphaComponent(0.3)
+            } else {
+                return UIColor.tableCellColor.withAlphaComponent(0.85)
+            }
+        }
+        
+        switchButton.onTintColor = UIColor { (traits: UITraitCollection) -> UIColor in
+            if traits.userInterfaceStyle == .light {
+                return UIColor.systemGreen
+            } else {
+                return UIColor.systemBlue
+            }
+        }
+        
         setupSwitch()
         self.selectionStyle = .none
     }

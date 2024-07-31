@@ -8,11 +8,8 @@
 import UIKit
 
 final class TrackerCollectionViewCell: UICollectionViewCell {
-    
     // MARK: - Public Properties
     static let identifier = "TrackerCell"
-    
-    weak var counterDelegate: TrackerCounterDelegate?
     
     let addButton = UIButton(type: .custom)
     let card = UIView()
@@ -22,8 +19,25 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     let pinImageView = UIImageView()
     let daysCountLabel = UILabel()
     
+    weak var counterDelegate: TrackerCounterDelegate?
+    
+    var deleteTrackerHandler: ((Tracker) -> ())?
+    var pinTrackerHandler: ((Tracker) -> ())?
+    var editTrackerHandler: ((TrackerInfoCell) -> ())?
+    
     var color: UIColor?
-    var isPinned: Bool = false
+    
+    var isPinned: Bool = false {
+        didSet {
+            if (isPinned) {
+                pinImageView.isHidden = false
+            } else {
+                pinImageView.isHidden = true
+            }
+            
+        }
+    }
+    
     var daysCount: Int = 0 {
         didSet {
             updateDaysCountLabel()
@@ -42,6 +56,9 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Private Properties
+    private let analyticsService = AnalyticsService()
+    
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,6 +76,10 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         setupDaysCountLabel()
         
         contentView.layer.masksToBounds = true
+        
+        let contextMenu = UIContextMenuInteraction(delegate: self)
+        
+        card.addInteraction(contextMenu)
     }
     
     required init?(coder: NSCoder) {
@@ -68,6 +89,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     // MARK: - IBAction
     @objc
     func buttonClicked() {
+        analyticsService.report(event: .click, params: ["screen" : "Main", "item" : "track"])
         if !checkIfTrackerWasCompleted() {
             guard let id = trackerInfo?.id,
                   let currentDay = trackerInfo?.currentDay,
@@ -126,6 +148,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     private func setupCard() {
         card.layer.cornerRadius = 16
         card.layer.masksToBounds = true
+        card.accessibilityIdentifier = "trackerBackground"
         card.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -214,5 +237,50 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
             addButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             addButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
+    }
+}
+
+//MARK: - UIContextMenuInteractionDelegate
+extension TrackerCollectionViewCell: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(
+        _ interaction: UIContextMenuInteraction,
+        configurationForMenuAtLocation location: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        guard let trackerInfo = trackerInfo else {
+            return nil
+        }
+        return UIContextMenuConfiguration(
+            identifier: nil,
+            previewProvider: nil,
+            actionProvider: { _ in
+                
+                let tracker = Tracker(
+                    id: trackerInfo.id,
+                    name: trackerInfo.name,
+                    color: trackerInfo.color,
+                    emoji: trackerInfo.emoji,
+                    schedule: trackerInfo.schedule,
+                    state: trackerInfo.state,
+                    isPinned: self.isPinned )
+                
+                let pinTittle = self.isPinned ? "unpin" : "pin"
+                
+                let pinAction = UIAction(title: NSLocalizedString(pinTittle, comment: "")) { [weak self] _ in
+                    self?.pinTrackerHandler?(tracker)
+                }
+                
+                let editAction = UIAction(title: NSLocalizedString("edit", comment: "")) { [weak self] _ in
+                    self?.editTrackerHandler?(trackerInfo)
+                }
+                
+                let deleteAction = UIAction(title: NSLocalizedString("delete", comment: ""), attributes: .destructive) { [weak self] _ in
+                    self?.deleteTrackerHandler?(tracker)
+                }
+                
+                deleteAction.accessibilityIdentifier = "deleteTracker"
+                
+                return UIMenu(title: "", children: [pinAction, editAction, deleteAction])
+            }
+        )
     }
 }
