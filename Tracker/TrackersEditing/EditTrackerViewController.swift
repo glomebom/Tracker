@@ -200,13 +200,13 @@ extension EditTrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case Sections.name.rawValue, Sections.buttons.rawValue:
-            return 1
+            return CellSize.one
         case Sections.emoji.rawValue:
             return Constants.allEmojies.count
         case Sections.color.rawValue:
             return Constants.allColors.count
         default:
-            return 0
+            return .zero
         }
     }
     
@@ -217,7 +217,8 @@ extension EditTrackerViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.delegate = viewModel
-            cell.trackerNameTextField.text = viewModel.trackerInfo.name
+            guard let name = viewModel.trackerInfo.name else { return UICollectionViewCell() }
+            cell.setTrackerNameTextField(with: name)
             cell.prepareForReuse()
             return cell
             
@@ -273,8 +274,8 @@ extension EditTrackerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.label.text = Constants.allEmojies[indexPath.row]
-        if cell.label.text == viewModel.trackerInfo.emoji {
+        cell.setEmoji(with: Constants.allEmojies[indexPath.row])
+        if cell.getEmoji() == viewModel.trackerInfo.emoji {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
         }
         return cell
@@ -285,7 +286,7 @@ extension EditTrackerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.prepareForReuse()
-        cell.colorView.backgroundColor = Constants.allColors[indexPath.row]
+        cell.setColor(with: Constants.allColors[indexPath.row])
         if  UIColorMarshalling().isEqual(color1: Constants.allColors[indexPath.row], to: viewModel.trackerInfo.color!) {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         }
@@ -296,7 +297,7 @@ extension EditTrackerViewController: UICollectionViewDataSource {
         cell.prepareForReuse()
         cell.scheduleDelegate = self
         cell.categoriesDelegate = self
-        cell.state = .Habit
+        cell.state = .habit
         cell.scheduleSubText = viewModel.convertSelectedDaysToString()
         cell.categorySubText = viewModel.trackerInfo.category?.title
     }
@@ -335,11 +336,11 @@ extension EditTrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -362,15 +363,13 @@ extension EditTrackerViewController: UICollectionViewDelegateFlowLayout {
                 collectionView.deselectItem(at: indexPath, animated: true)
                 return
             }
-            guard let emoji = cell.label.text else { return }
-            viewModel.trackerInfo.emoji = emoji
+            viewModel.trackerInfo.emoji = cell.getEmoji()
         } else if indexPath.section == Sections.color.rawValue {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ColorCell else {
                 collectionView.deselectItem(at: indexPath, animated: true)
                 return
             }
-            guard let color = cell.colorView.backgroundColor else { return }
-            viewModel.trackerInfo.color = color
+            viewModel.trackerInfo.color = cell.getColor()
         } else {
             collectionView.deselectItem(at: indexPath, animated: true)
         }

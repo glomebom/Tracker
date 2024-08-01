@@ -311,7 +311,7 @@ extension TrackerPresenter: TrackerRecordStoreDelegate {
 
 extension TrackerPresenter: TrackerCreationDelegate {
     func createTracker(tracker: Tracker, category: String) {
-        try! trackerStore.addNewTracker(tracker: tracker, forCategory: category)
+        try? trackerStore.addNewTracker(tracker: tracker, forCategory: category)
     }
 }
 
@@ -332,10 +332,10 @@ extension TrackerPresenter: TrackerCounterDelegate {
     }
     
     func increaseTrackerCounter(id trackerId: UUID, date: Date) {
-        try! trackerRecordStore.addRecord(trackerId: trackerId, date: date)
+        try? trackerRecordStore.addRecord(trackerId: trackerId, date: date)
     }
     
     func decreaseTrackerCounter(id trackerId: UUID, date: Date) {
-        try! trackerRecordStore.deleteRecord(trackerId: trackerId, date: date)
+        try? trackerRecordStore.deleteRecord(trackerId: trackerId, date: date)
     }
 }

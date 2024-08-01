@@ -11,8 +11,9 @@ final class StatisticsTableCell: UITableViewCell {
     // MARK: - Public Properties
     static let identifier = "StatisticsTableCell"
     
-    var nameLabel = UILabel()
-    var scoreLabel = UILabel()
+    // MARK: - Private Properties
+    private var nameLabel = UILabel()
+    private var scoreLabel = UILabel()
     
     // MARK: - Private Properties
     private var gradient:CAGradientLayer = {
@@ -62,6 +63,15 @@ final class StatisticsTableCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public Methods
+    func setNameLabel() {
+        nameLabel.text = NSLocalizedString("stat.completed", comment: "")
+    }
+    
+    func setScore(with score: Int) {
+        scoreLabel.text = String(score)
     }
     
     // MARK: - Private Methods

@@ -17,8 +17,8 @@ final class NameTrackerCell: UICollectionViewCell {
     
     weak var delegate: SaveNameTrackerDelegate?
     
-    let trackerNameTextField = UITextField()
-    let xButton = UIButton(type: .custom)
+    // MARK: - Private Properties
+    private let trackerNameTextField = UITextField()
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -36,6 +36,11 @@ final class NameTrackerCell: UICollectionViewCell {
     func textFieldEditingChanged(_ textField: UITextField) {
         guard let text = trackerNameTextField.text else { return }
         delegate?.textFieldWasChanged(text: text)
+    }
+    
+    // MARK: - Public Methods
+    func setTrackerNameTextField(with string: String) {
+        trackerNameTextField.text = string
     }
     
     // MARK: - Private Methods

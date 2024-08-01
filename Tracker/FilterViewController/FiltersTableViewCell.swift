@@ -11,7 +11,7 @@ final class FiltersTableViewCell: UITableViewCell {
     // MARK: - Public Properties
     static let identifier = "FiltersCell"
     
-    var label = UILabel()
+    private var label = UILabel()
     
     // MARK: - Overrides Methods
     override var isSelected: Bool {
@@ -41,22 +41,26 @@ final class FiltersTableViewCell: UITableViewCell {
     }
     
     // MARK: - Public Methods
-    func setUpFirstCell() {
+    func setupFirstCell() {
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         layer.cornerRadius = 16
     }
     
-    func setUpLastCell() {
+    func setupLastCell() {
         layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layer.cornerRadius = 16
     }
     
-    func setUpSingleCell() {
+    func setupSingleCell() {
         layer.cornerRadius = 16
         layer.maskedCorners = [.layerMaxXMinYCorner,
                                .layerMinXMinYCorner,
                                .layerMinXMaxYCorner,
                                .layerMaxXMaxYCorner]
+    }
+    
+    func setLabelText(with string: String) {
+        label.text = string
     }
     
     // MARK: - Private Methods

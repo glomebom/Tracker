@@ -11,7 +11,8 @@ final class EmojiCell: UICollectionViewCell {
     // MARK: - Public Properties
     static let identifier = "EmojiCell"
     
-    let label = UILabel()
+    // MARK: - Private Properties
+    private let label = UILabel()
     
     override var isSelected: Bool {
         didSet {
@@ -29,6 +30,16 @@ final class EmojiCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public Methods
+    func setEmoji(with string: String) {
+        label.text = string
+    }
+    
+    func getEmoji() -> String {
+        guard let text = label.text else { return String() }
+        return text
     }
     
     // MARK: - Private Methods

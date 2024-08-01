@@ -51,19 +51,19 @@ final class TrackerCategoriesMock {
                             color: .color1,
                             emoji: Constants.allEmojies[1],
                             schedule: [today],
-                            state: .Habit,
+                            state: .habit,
                             isPinned: false),
                     Tracker(name: "walk with dog",
                             color: .color2,
                             emoji: Constants.allEmojies[2],
                             schedule: [today],
-                            state: .Habit,
+                            state: .habit,
                             isPinned: false),
                     Tracker(name: "deliever package",
                             color: .color3,
                             emoji: Constants.allEmojies[2],
                             schedule: [tomorrow],
-                            state: .Habit,
+                            state: .habit,
                             isPinned: true)
                 ]),
             TrackerCategory(
@@ -74,7 +74,7 @@ final class TrackerCategoriesMock {
                         color: .color3,
                         emoji: Constants.allEmojies[3],
                         schedule: [today],
-                        state: .Habit,
+                        state: .habit,
                         isPinned: false)
                 ])
         ]
@@ -204,7 +204,7 @@ final class TrackerUnitTests: XCTestCase {
             category: mock.categoriesMock[0],
             daysCount: 0,
             isPinned: false,
-            state: .Habit
+            state: .habit
         )
         let viewModel = EditingViewModel(trackerInfo: trackerInfo)
         

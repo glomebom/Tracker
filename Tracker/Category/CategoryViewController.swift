@@ -148,6 +148,6 @@ extension CategoryViewController: UITableViewDataSource {
 //MARK: - TableView Delegate
 extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return CellSize.seventyFive
     }
 }

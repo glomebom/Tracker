@@ -8,7 +8,7 @@
 import UIKit
 
 
-final class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class FiltersViewController: UIViewController {
     // MARK: - Public Properties
     var selectedFilter: Filters
     var filterChangedHandler: ((Filters) -> ())?
@@ -57,8 +57,10 @@ final class FiltersViewController: UIViewController, UITableViewDataSource, UITa
             tableView.heightAnchor.constraint(equalToConstant: CGFloat(75 * filters.count))
         ])
     }
-    
-    //MARK: - TableView Data Source
+}
+
+//MARK: - TableView Data Source
+extension FiltersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filters.count
     }
@@ -70,15 +72,15 @@ final class FiltersViewController: UIViewController, UITableViewDataSource, UITa
         cell.prepareForReuse()
         
         if filters.count == 1 {
-            cell.setUpSingleCell()
+            cell.setupSingleCell()
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
         } else if indexPath.row == 0 {
-            cell.setUpFirstCell()
+            cell.setupFirstCell()
         } else if indexPath.row == filters.count - 1 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.bounds.width)
-            cell.setUpLastCell()
+            cell.setupLastCell()
         }
-        cell.label.text = filters[indexPath.row].name
+        cell.setLabelText(with: filters[indexPath.row].name)
         if filters[indexPath.row] == selectedFilter {
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         }
@@ -97,9 +99,11 @@ final class FiltersViewController: UIViewController, UITableViewDataSource, UITa
         guard let cell = tableView.cellForRow(at: indexPath) as? FiltersTableViewCell  else { return }
         cell.accessoryType = .none
     }
-    
-    //MARK: - TableView Delegate
+}
+
+//MARK: - TableView Delegate
+extension FiltersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return CellSize.seventyFive
     }
 }

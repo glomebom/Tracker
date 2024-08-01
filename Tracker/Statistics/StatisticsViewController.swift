@@ -62,7 +62,7 @@ final class StatisticsViewController: UIViewController {
     
     private func calculateCompletedTrackers() -> Int {
         guard let result = try? trackerRecordStore.calculateCompletedTrackers() else {
-            return 0
+            return .zero
         }
         return result
     }
@@ -92,10 +92,10 @@ extension StatisticsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if score == 0 {
             placeHolderView.isHidden = false
-            return 0
+            return .zero
         } else {
             placeHolderView.isHidden = true
-            return 1
+            return CellSize.one
         }
     }
     
@@ -104,8 +104,8 @@ extension StatisticsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.prepareForReuse()
-        cell.nameLabel.text = NSLocalizedString("stat.completed", comment: "")
-        cell.scoreLabel.text = String(score)
+        cell.setNameLabel()
+        cell.setScore(with: score)
         return cell
     }
     
@@ -114,6 +114,6 @@ extension StatisticsViewController: UITableViewDataSource {
 //MARK: - TableView Delegate
 extension StatisticsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return CellSize.ninety
     }
 }

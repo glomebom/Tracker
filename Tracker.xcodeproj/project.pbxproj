@@ -78,6 +78,7 @@
 		F77BE1362C57CE5300354ED3 /* TrackerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77BE1352C57CE5300354ED3 /* TrackerInfoModel.swift */; };
 		F77BE1382C57DE5500354ED3 /* PlaceHolderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77BE1372C57DE5500354ED3 /* PlaceHolderState.swift */; };
 		F77DB03E2C53FBEC00EF4232 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = F77DB0402C53FBEC00EF4232 /* Localizable.stringsdict */; };
+		F7F1A01E2C5BA8BB0089AD7B /* CellSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1A01D2C5BA8BB0089AD7B /* CellSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +185,7 @@
 		F77BE1372C57DE5500354ED3 /* PlaceHolderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderState.swift; sourceTree = "<group>"; };
 		F77DB03F2C53FBEC00EF4232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		F77DB0412C53FBEE00EF4232 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		F7F1A01D2C5BA8BB0089AD7B /* CellSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +362,7 @@
 				F771E4B62C58C41A00366239 /* Constants.swift */,
 				F771E4BA2C59060A00366239 /* Sections.swift */,
 				F771E4BC2C5906E400366239 /* TrackerTypeSections.swift */,
+				F7F1A01D2C5BA8BB0089AD7B /* CellSize.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -735,6 +738,7 @@
 				F77BE1282C57CB0F00354ED3 /* TrackerPresenter.swift in Sources */,
 				F7725E162C47BC9D0052BD63 /* State.swift in Sources */,
 				F769AC652C1888C000CC0855 /* ColorCell.swift in Sources */,
+				F7F1A01E2C5BA8BB0089AD7B /* CellSize.swift in Sources */,
 				F768E0D02C16229300558276 /* ButtonsCell.swift in Sources */,
 				F76A969F2C36D74E0083043D /* UIColorMarshalling.swift in Sources */,
 				F769AC6D2C188A7B00CC0855 /* NewHabitCreationViewController.swift in Sources */,

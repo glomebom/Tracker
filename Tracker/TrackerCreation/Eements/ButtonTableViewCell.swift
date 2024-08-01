@@ -11,9 +11,8 @@ final class ButtonTableViewCell: UITableViewCell {
     // MARK: - Public Properties
     static let identifier = "ButtonTableViewCell"
     
-    let titleLabel = UILabel()
-    
     // MARK: - Private Properties
+    private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     private let stackView = UIStackView()
     
@@ -55,6 +54,10 @@ final class ButtonTableViewCell: UITableViewCell {
             subtitleLabel.text = ""
             stackView.removeArrangedSubview(subtitleLabel)
         }
+    }
+    
+    func setTitleLabelText(with string: String) {
+        titleLabel.text = NSLocalizedString("\(string)", comment: "")
     }
     
     // MARK: - Private Methods

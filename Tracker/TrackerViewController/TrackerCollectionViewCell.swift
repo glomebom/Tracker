@@ -11,14 +11,6 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Properties
     static let identifier = "TrackerCell"
     
-    let addButton = UIButton(type: .custom)
-    let card = UIView()
-    let circle = UIView()
-    let emojiLabel = UILabel()
-    let titleLabel = UILabel()
-    let pinImageView = UIImageView()
-    let daysCountLabel = UILabel()
-    
     weak var counterDelegate: TrackerCounterDelegate?
     
     var deleteTrackerHandler: ((Tracker) -> ())?
@@ -58,6 +50,14 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     private let analyticsService = AnalyticsService()
+    
+    private let addButton = UIButton(type: .custom)
+    private let card = UIView()
+    private let circle = UIView()
+    private let emojiLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let pinImageView = UIImageView()
+    private let daysCountLabel = UILabel()
     
     // MARK: - Initializers
     override init(frame: CGRect) {

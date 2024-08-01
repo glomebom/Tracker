@@ -109,7 +109,7 @@ class CreationTrackerViewController: UIViewController {
             color: color,
             emoji: emoji,
             schedule: selectedWeekDays,
-            state: .Habit,
+            state: .habit,
             isPinned: false
         )
         
@@ -201,13 +201,13 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case Sections.name.rawValue, Sections.buttons.rawValue:
-            return 1
+            return CellSize.one
         case Sections.emoji.rawValue:
             return allEmojies.count
         case Sections.color.rawValue:
             return allColors.count
         default:
-            return 0
+            return .zero
         }
     }
     
@@ -233,7 +233,7 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.prepareForReuse()
-            cell.colorView.backgroundColor = allColors[indexPath.row]
+            cell.setColor(with: allColors[indexPath.row])
             return cell
         default:
             return UICollectionViewCell()
@@ -276,7 +276,7 @@ extension CreationTrackerViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiCell.identifier, for: indexPath) as? EmojiCell else {
             return UICollectionViewCell()
         }
-        cell.label.text = allEmojies[indexPath.row]
+        cell.setEmoji(with: allEmojies[indexPath.row])
         return cell
     }
 }
@@ -314,11 +314,11 @@ extension CreationTrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -332,15 +332,13 @@ extension CreationTrackerViewController: UICollectionViewDelegateFlowLayout {
                 collectionView.deselectItem(at: indexPath, animated: true)
                 return
             }
-            guard let emoji = cell.label.text else { return }
-            selectedEmoji = emoji
+            selectedEmoji = cell.getEmoji()
         } else if indexPath.section == Sections.color.rawValue {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ColorCell else {
                 collectionView.deselectItem(at: indexPath, animated: true)
                 return
             }
-            guard let color = cell.colorView.backgroundColor else { return }
-            selectedColor = color
+            selectedColor = cell.getColor()
         } else {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
