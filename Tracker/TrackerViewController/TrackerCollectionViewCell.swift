@@ -42,8 +42,10 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
             titleLabel.text = trackerInfo?.name
             emojiLabel.text = trackerInfo?.emoji
             card.backgroundColor = trackerInfo?.color
+            
             daysCount = trackerInfo?.daysCount ?? daysCount
             color = trackerInfo?.color
+            isPinned = trackerInfo?.isPinned ?? false
             updateAddButton()
         }
     }

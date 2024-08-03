@@ -26,9 +26,9 @@ final class TabBarController: UITabBarController {
             image: UIImage(named: "trackerTabBarActive"),
             selectedImage: nil
         )
-        
-        let navigationViewController = UINavigationController(rootViewController: trackerViewController)
-        
+
+        let trackersNavViewController = UINavigationController(rootViewController: trackerViewController)
+
         let statisticsViewController = StatisticsViewController()
         statisticsViewController.tabBarItem = UITabBarItem(
             title: NSLocalizedString("statistics", comment: ""),
@@ -37,6 +37,9 @@ final class TabBarController: UITabBarController {
         )
         
         self.tabBar.barTintColor = .white
-        self.viewControllers = [ navigationViewController, statisticsViewController]
+        
+        let statisticsNavViewController = UINavigationController(rootViewController: statisticsViewController)
+
+        self.viewControllers = [trackersNavViewController, statisticsNavViewController]
     }
 }

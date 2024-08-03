@@ -41,20 +41,20 @@ final class PlaceHolderView: UIView {
     }
     
     func setUpNoTrackersState() {
-        let image = UIImage(named: "star")
+        let image = UIImage(named: "statisticsStar")
         imageView.image = image
         label.text = NSLocalizedString("placeholder.noTrackers", comment: "")
     }
     
     func setUpNoSearchResultsState() {
-        let image = UIImage(named: "NoResult")
+        let image = UIImage(named: "notFound")
         imageView.image = image
         
         label.text = NSLocalizedString("placeholder.noSearchResults", comment: "")
     }
     
     func setUpNoCategories() {
-        let image = UIImage(named: "star")
+        let image = UIImage(named: "statisticsStar")
         imageView.image = image
         
         label.text = NSLocalizedString("placeholder.noCategories", comment: "")
@@ -86,6 +86,7 @@ final class PlaceHolderView: UIView {
         
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         addSubview(label)
         
         NSLayoutConstraint.activate([

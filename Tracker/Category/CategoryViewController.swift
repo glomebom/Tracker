@@ -46,6 +46,7 @@ final class CategoryViewController: UIViewController {
     
     private func setupButton() {
         createCategoryButton.setTitle(NSLocalizedString("category.add", comment: ""), for: .normal)
+        createCategoryButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         createCategoryButton.backgroundColor = .ypBlack
         createCategoryButton.layer.cornerRadius = 16
         createCategoryButton.addTarget(self, action: #selector(createCategoryButtonTapped), for: .touchUpInside)

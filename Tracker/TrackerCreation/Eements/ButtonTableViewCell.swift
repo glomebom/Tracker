@@ -20,6 +20,8 @@ final class ButtonTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        selectionStyle = .none
+        
         backgroundColor = UIColor { (traits: UITraitCollection) -> UIColor in
             if traits.userInterfaceStyle == .light {
                 return UIColor.tableCellColor.withAlphaComponent(0.3)

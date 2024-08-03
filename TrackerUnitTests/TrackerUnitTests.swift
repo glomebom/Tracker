@@ -143,7 +143,7 @@ final class TrackerUnitTests: XCTestCase {
         presenter.completedTrackers = mock.completedTrackersMock
         
         //when
-        let result = presenter.filterCategoriesToshow(filter: .completedTrackers)
+        let result = presenter.filterCategoriesToShow(filter: .completedTrackers)
         
         //then
         XCTAssertEqual(result.count, 1)

@@ -33,7 +33,7 @@ final class TrackerPresenter {
     }
     
     lazy var currentCategories: [TrackerCategory] = {
-        filterCategoriesToshow(filter: selectedFilter)
+        filterCategoriesToShow(filter: selectedFilter)
     }()
     
     // MARK: - Private Properties
@@ -183,7 +183,7 @@ final class TrackerPresenter {
     
     //MARK: - Collection Updating
     func updateMainScreen() {
-        currentCategories = filterCategoriesToshow(filter: selectedFilter)
+        currentCategories = filterCategoriesToShow(filter: selectedFilter)
         viewController?.updateCollectionView()
     }
     
@@ -202,7 +202,7 @@ final class TrackerPresenter {
     }
     
     //MARK: - Filtering
-    func filterCategoriesToshow(filter: Filters) -> [TrackerCategory] {
+    func filterCategoriesToShow(filter: Filters) -> [TrackerCategory] {
         switch filter {
         case .allTrackers:
             viewController?.placeHolder?.state = PlaceHolderState.noTrackers

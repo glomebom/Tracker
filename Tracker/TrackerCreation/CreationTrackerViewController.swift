@@ -76,7 +76,7 @@ class CreationTrackerViewController: UIViewController {
     // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         setupStackView()
         setupCollectionView()
         
@@ -123,6 +123,7 @@ class CreationTrackerViewController: UIViewController {
     ///MARK: - Setup StackView And Buttons
     private func setupSaveButton() {
         saveButton.setTitle(NSLocalizedString("save", comment: ""), for: .normal)
+        saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         saveButton.backgroundColor = UIColor(named: "YP Gray")
         saveButton.layer.cornerRadius = 16
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
@@ -136,6 +137,7 @@ class CreationTrackerViewController: UIViewController {
     
     private func setupCancelButton() {
         cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal)
+        cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         cancelButton.clipsToBounds = true
         cancelButton.setTitleColor(.red, for: .normal)
         cancelButton.layer.cornerRadius = 16
