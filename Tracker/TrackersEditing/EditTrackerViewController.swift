@@ -30,7 +30,7 @@ final class EditTrackerViewController: UIViewController {
     private let saveButton: UIButton = {
         let button = UIButton()
         button.setTitle(NSLocalizedString("save", comment: ""), for: .normal)
-        button.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.layer.cornerRadius = 16
         return button
     }()
@@ -38,7 +38,7 @@ final class EditTrackerViewController: UIViewController {
     private let cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal)
-        button.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.clipsToBounds = true
         button.setTitleColor(UIColor.ypRed, for: .normal)
         button.layer.masksToBounds = true
