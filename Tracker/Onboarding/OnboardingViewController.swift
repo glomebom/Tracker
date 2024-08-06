@@ -11,12 +11,12 @@ final class OnboardingViewController: UIPageViewController {
     // MARK: - Public Properties
     lazy var pages: [UIViewController] = {
         let blue = SinglePageOnboardingViewController(
-            text: "Отслеживайте только то, что хотите",
+            text: NSLocalizedString("onboarding.first", comment: ""),
             imageTitle: "backgr1"
         )
         
         let red = SinglePageOnboardingViewController(
-            text: "Даже если это не литры воды и йога",
+            text: NSLocalizedString("onboarding.second", comment: ""),
             imageTitle: "backgr2"
         )
         
@@ -28,8 +28,8 @@ final class OnboardingViewController: UIPageViewController {
         pageControl.numberOfPages = pages.count
         pageControl.currentPage = 0
         
-        pageControl.currentPageIndicatorTintColor = .ypBlack
-        pageControl.pageIndicatorTintColor = .ypBlack.withAlphaComponent(0.3)
+        pageControl.currentPageIndicatorTintColor = .totalBlack
+        pageControl.pageIndicatorTintColor = .totalBlack.withAlphaComponent(0.3)
         
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
@@ -80,12 +80,14 @@ final class OnboardingViewController: UIPageViewController {
     
     // MARK: - Private Methods
     private func setupButton() {
-        button.setTitle("Вот это технологии!", for: .normal)
+        let buttonText = NSLocalizedString("onboarding.button", comment: "")
+        button.setTitle(buttonText, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.titleLabel?.textColor = .white
-        button.backgroundColor = UIColor.ypBlack
+        button.backgroundColor = .totalBlack
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.accessibilityIdentifier = "onboardingButton"
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
         

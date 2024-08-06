@@ -26,7 +26,13 @@ final class CategoryCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor(named: "YP Gray")?.withAlphaComponent(0.3)
+        backgroundColor = UIColor { (traits: UITraitCollection) -> UIColor in
+            if traits.userInterfaceStyle == .light {
+                return UIColor.tableCellColor.withAlphaComponent(0.3)
+            } else {
+                return UIColor.tableCellColor.withAlphaComponent(0.85)
+            }
+        }
         separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         layer.maskedCorners = []
         

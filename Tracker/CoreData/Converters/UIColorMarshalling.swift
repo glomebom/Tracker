@@ -8,6 +8,7 @@
 import UIKit
 
 final class UIColorMarshalling {
+    // MARK: - Public Methods
     func hexString(from color: UIColor) -> String {
         let components = color.cgColor.components
         let r: CGFloat = components?[0] ?? 0.0
@@ -20,7 +21,7 @@ final class UIColorMarshalling {
             lroundf(Float(b * 255))
         )
     }
-
+    
     func color(from hex: String) -> UIColor {
         var rgbValue:UInt64 = 0
         Scanner(string: hex).scanHexInt64(&rgbValue)
@@ -30,5 +31,14 @@ final class UIColorMarshalling {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
+    }
+    
+    func isEqual(color1: UIColor, to color2: UIColor) -> Bool {
+        let hex1 = hexString(from: color1)
+        let hex2 = hexString(from: color2)
+        if hex1 == hex2 {
+            return true
+        }
+        return false
     }
 }

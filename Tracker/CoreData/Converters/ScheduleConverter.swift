@@ -8,6 +8,7 @@
 import Foundation
 
 final class ScheduleConvertor {
+    // MARK: - Public Methods
     func getSchedule(from byte: Int16) -> Set<WeekDays> {
         let arrayOfBits = convertFromUInt16(from: byte)
         var weekdays: Set<WeekDays> = []
@@ -39,10 +40,10 @@ final class ScheduleConvertor {
             }
             byte >>= 1
         }
-
+        
         return bits
     }
-
+    
     private func convertFromUInt16(from value: Int16) -> [Int] {
         let bitsInByte = bits(fromByte: value)
         var array: [Int] = []

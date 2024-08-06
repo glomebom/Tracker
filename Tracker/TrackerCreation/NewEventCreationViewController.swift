@@ -8,7 +8,6 @@
 import UIKit
 
 final class NewEventCreationViewController: CreationTrackerViewController {
-    
     // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +31,8 @@ final class NewEventCreationViewController: CreationTrackerViewController {
             color: color,
             emoji: emoji,
             schedule: weekSet,
-            state: .Event
+            state: .event,
+            isPinned: false
         )
         
         creationDelegate?.createTracker(tracker: tracker, category: categoryTitle)
@@ -47,11 +47,11 @@ extension NewEventCreationViewController: ConfigureUIForTrackerCreationProtocol 
     func configureButtonsCell(cell: ButtonsCell) {
         cell.prepareForReuse()
         cell.categoriesDelegate = self
-        cell.state = .Event
+        cell.state = .event
     }
     
     func setupBackground() {
-        self.title = "Новое нерегулярное событие"
+        self.title = NSLocalizedString("event.new", comment: "")
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
     }

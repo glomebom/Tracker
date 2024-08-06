@@ -58,6 +58,7 @@ final class SinglePageOnboardingViewController: UIViewController {
         textLabel.lineBreakMode = .byWordWrapping
         textLabel.numberOfLines = 0
         textLabel.textAlignment = .center
+        textLabel.textColor = .totalBlack
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textLabel)
         

@@ -8,7 +8,6 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    
     // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,21 +22,24 @@ final class TabBarController: UITabBarController {
     private func setupTabBar() {
         let trackerViewController = TrackerViewController()
         trackerViewController.tabBarItem = UITabBarItem(
-            title: "Трекеры",
+            title: NSLocalizedString("trackers", comment: ""),
             image: UIImage(named: "trackerTabBarActive"),
             selectedImage: nil
         )
-        
-        let navigationViewController = UINavigationController(rootViewController: trackerViewController)
-        
+
+        let trackersNavViewController = UINavigationController(rootViewController: trackerViewController)
+
         let statisticsViewController = StatisticsViewController()
         statisticsViewController.tabBarItem = UITabBarItem(
-            title: "Статитстика",
+            title: NSLocalizedString("statistics", comment: ""),
             image: UIImage(named: "statisticsTabBarNotActive"),
             selectedImage: nil
         )
         
         self.tabBar.barTintColor = .white
-        self.viewControllers = [ navigationViewController, statisticsViewController]
+        
+        let statisticsNavViewController = UINavigationController(rootViewController: statisticsViewController)
+
+        self.viewControllers = [trackersNavViewController, statisticsNavViewController]
     }
 }

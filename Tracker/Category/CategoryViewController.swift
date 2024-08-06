@@ -19,7 +19,7 @@ final class CategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Категория"
+        self.title = NSLocalizedString("category", comment: "")
         navigationItem.hidesBackButton = true
         view.backgroundColor = .white
         
@@ -45,10 +45,12 @@ final class CategoryViewController: UIViewController {
     }
     
     private func setupButton() {
-        createCategoryButton.setTitle("Добавить категорию", for: .normal)
+        createCategoryButton.setTitle(NSLocalizedString("category.add", comment: ""), for: .normal)
+        createCategoryButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         createCategoryButton.backgroundColor = .ypBlack
         createCategoryButton.layer.cornerRadius = 16
         createCategoryButton.addTarget(self, action: #selector(createCategoryButtonTapped), for: .touchUpInside)
+        createCategoryButton.accessibilityIdentifier = "createCategory"
         createCategoryButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(createCategoryButton)
         
@@ -147,6 +149,6 @@ extension CategoryViewController: UITableViewDataSource {
 //MARK: - TableView Delegate
 extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return CellSize.seventyFive
     }
 }

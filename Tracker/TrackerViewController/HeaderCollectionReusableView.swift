@@ -8,7 +8,6 @@
 import UIKit
 
 final class HeaderCollectionReusableView: UICollectionReusableView {
-    
     // MARK: - Public Properties
     static let identifier = "Header"
     

@@ -125,8 +125,12 @@ final class TrackerCategoryStore: NSObject {
                     color: color,
                     emoji: emoji,
                     schedule: schedule,
-                    state: .Habit
+                    state: .habit,
+                    isPinned: trackerData.isPinned
                 )
+                ///
+                print("[DEBUG]: TrackerCategoryStore: tracker.isPinned: \(tracker.isPinned)")
+                ///
                 trackers.append(tracker)
             }
         }

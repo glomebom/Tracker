@@ -8,7 +8,6 @@
 import UIKit
 
 final class NewHabitCreationViewController: CreationTrackerViewController {
-    
     // MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +23,7 @@ final class NewHabitCreationViewController: CreationTrackerViewController {
         var scheduleSubtext = String()
         
         if selectedWeekDays == weekSet {
-            scheduleSubtext = "Каждый день"
+            scheduleSubtext = NSLocalizedString("weekdays.all", comment: "")
         } else if !selectedWeekDays.isEmpty {
             selectedWeekDays.sorted {
                 $0.rawValue < $1.rawValue
@@ -79,11 +78,11 @@ extension NewHabitCreationViewController: ConfigureUIForTrackerCreationProtocol 
         cell.prepareForReuse()
         cell.scheduleDelegate = self
         cell.categoriesDelegate = self
-        cell.state = .Habit
+        cell.state = .habit
     }
     
     func setupBackground() {
-        self.title = "Новая привычка"
+        self.title = NSLocalizedString("habit.new", comment: "")
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
     }
